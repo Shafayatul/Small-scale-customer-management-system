@@ -7,44 +7,8 @@ use App\Http\Controllers\Controller;
 
 use App\Invoice;
 use Illuminate\Http\Request;
-use Codedge\Fpdf\Fpdf\Fpdf;
+use App\Classes\invoicr;
 
-
-class PDF extends FPDF
-{
-// Page header
-function Header()
-{
-    // Logo
-    $this->Image('logo.png',10,6,30);
-    // Arial bold 15
-    $this->SetFont('Arial','B',15);
-    // Move to the right
-    $this->Cell(80);
-    // Title
-    $this->Cell(30,10,'Title',1,0,'C');
-    // Line break
-    $this->Ln(20);
-}
-
-// Page footer
-function Footer()
-{
-    // Position at 1.5 cm from bottom
-    $this->SetY(-15);
-    // Arial italic 8
-    $this->SetFont('Arial','I',8);
-    // Page number
-    $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
-}
-
-
-function setNumberFormat($decimals,$thousands_sep)
-    {
-        $this->referenceformat = array($decimals,$thousands_sep);
-    }
-
-}
 
 class InvoicesController extends Controller
 {
@@ -89,36 +53,58 @@ class InvoicesController extends Controller
         //     $invoice->save();
         // }
 
-        $pdroduct = 'dhfgdfjhg';
+        $product = 'dhfgdfjhg';
         $desc = 'djfhgjkdfhgkjdhfgjk';
         $price = '50';
-        $their_practice = 'jsdhfjksdhfjk';
-        $their_address1 = 'jsdhfjksdhfjk';
-        $their_address2 = 'jsdhfjksdhfjk';
+        $their_practice = "jsdhfjksdhfjk";
+        $their_address1 = "jsdhfjksdhfjk";
+        $their_address2 = "jsdhfjksdhfjk";
         $due_date = date("y-m-d");
 
 
-        $fpdf = new Fpdf('P','mm','A4');
-        $fpdf->AddPage();
-        // $fpdf->setNumberFormat('.',',');
-        $fpdf->SetTextColor(0,0,0);
-        $fpdf->setTitle("Invoice");
-        $ref = date('y-m-d').'-'.mt_rand(1,1000);
-        // $fpdf->setReference($ref);
-        // $fpdf->setDate(date('m/d/Y',time()));
-        // $fpdf->setDue($due_date);
-        // $fpdf->setFrom(array("Devyn Earls, Inc.","4446-1A Hendricks Ave., Ste 224","Jacksonville, FL 32207"));
-        // $fpdf->setTo(array($their_practice,$their_address1,$their_address2));
-        // $fpdf->addItem($product,$desc,'','','','',$price);
-        // $fpdf->addTotal("Total due",$price,true);
-        // $fpdf->addTitle("Payment information");
-        // $fpdf->addParagraph("Make all checks payable to:  Devyn Earls, Inc.<br>You can pay online with an additional 3% convience fee on my website: https://www.devynearlsinc.com<br><br>If you have any questions concerning this invoice, contact me at devyn@dewebdesigns.com.<br><br>Thank you for your business.");
-        $fpdf->setFooternote("http://www.devynearlsinc.com");
-        $fpdf->Output();
-        $response = response($fpdf->Output('S'));
-        $response->header('Content-Type', 'application/pdf');
+     
+    //Create a new instance
+    $pdf = new invoicr();
+    $pdf->invoicr("A4","$","en");
+    //Set number formatting
+    $pdf->setNumberFormat('.',',');
+    //Set your logo
+    //$invoice->setLogo("http://www.dewebdesigns.com/images/logo.png");
+    //Set theme color
+    $pdf->setColor("#07569E");
+    //Set type
+    $pdf->setType("Invoice");
+    //Set reference
+    $ref = date('y-m-d').'-'.mt_rand(1,1000);
+    $pdf->setReference($ref);
+    //Set date
+    $pdf->setDate(date('m/d/Y',time()));
+    //Set due date
+    $pdf->setDue($due_date);
+    //Set from
+    $pdf->setFrom(array("Devyn Earls, Inc.","4446-1A Hendricks Ave., Ste 224","Jacksonville, FL 32207"));
+    //Set to
+    $pdf->setTo(array($their_practice,$their_address1,$their_address2));
+    //Add items
+    $pdf->addItem($product,$desc,'','','','',$price);
+    //Add items
+    //$invoice->addItem("10% For Late Payment","Your payment was received x days late last month",'','','','',$price*.1);
+    //Add totals
+    $pdf->addTotal("Total due",$price,true);
+    //Add Title
+    $pdf->addTitle("Payment information");
+    //Add Paragraph
+    $pdf->addParagraph("Make all checks payable to:  Devyn Earls, Inc.<br>You can pay online with an additional 3% convience fee on my website: https://www.devynearlsinc.com<br><br>If you have any questions concerning this invoice, contact me at devyn@dewebdesigns.com.<br><br>Thank you for your business.");
+    //Set footer note
+    $pdf->setFooternote("http://www.devynearlsinc.com");
+    //Render the PDF
+    $pdf->render($ref.'.pdf','I');
+        // $fpdf->AddPage();
+        // $fpdf->Output();
+        // $response = response($fpdf->Output('S'));
+        // $response->header('Content-Type', 'application/pdf');
 
-        return $response;
+        // return $response;
 
         // return 'success';
     }
