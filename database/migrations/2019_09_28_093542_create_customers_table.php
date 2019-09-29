@@ -17,11 +17,14 @@ class CreateCustomersTable extends Migration
             $table->increments('id');
             $table->string('name')->nullable();
             $table->string('email')->nullable();
+            $table->string('phone_number')->nullable();
             $table->string('business_name')->nullable();
             $table->longText('address')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('zip')->nullable();
+            $table->string('monthly_payment')->nullable();
+            $table->boolean('is_paid')->nullable();
             $table->timestamps();
         });
     }
