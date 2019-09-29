@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('customers', 'CustomersController');
+Route::get('/customer-invoice/{id}', 'CustomersController@invoiceCreate');
+Route::resource('invoices', 'InvoicesController');

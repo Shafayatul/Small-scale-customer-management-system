@@ -49,6 +49,12 @@ class CustomersController extends Controller
         return view('customers.create', compact('days', 'customer'));
     }
 
+    public function invoiceCreate($id)
+    {
+        $customer = Customer::findOrFail($id);
+        return view('invoices.create', compact('customer'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
