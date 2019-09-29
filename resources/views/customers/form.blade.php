@@ -24,10 +24,10 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="form-group {{ $errors->has('city') ? 'has-error' : ''}}">
-            {!! Form::label('city', 'City', ['class' => 'control-label']) !!}
-            {!! Form::text('city', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
-            {!! $errors->first('city', '<p class="help-block">:message</p>') !!}
+        <div class="form-group {{ $errors->has('phone_number') ? 'has-error' : ''}}">
+            {!! Form::label('phone_number', 'Phone Number', ['class' => 'control-label']) !!}
+            {!! Form::text('phone_number', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+            {!! $errors->first('phone_number', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -51,6 +51,23 @@
 </div>
 
 <div class="row">
+    <div class="col-md-6">
+        <div class="form-group {{ $errors->has('city') ? 'has-error' : ''}}">
+            {!! Form::label('city', 'City', ['class' => 'control-label']) !!}
+            {!! Form::text('city', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+            {!! $errors->first('city', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group {{ $errors->has('monthly_payment') ? 'has-error' : ''}}">
+            {!! Form::label('monthly_payment', 'Monthly Payment', ['class' => 'control-label']) !!}
+            {!! Form::text('monthly_payment', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+            {!! $errors->first('monthly_payment', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-md-12">
         <div class="form-group {{ $errors->has('address') ? 'has-error' : ''}}">
             {!! Form::label('address', 'Address', ['class' => 'control-label']) !!}
@@ -60,6 +77,47 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="customRadio" name="is_paid" value="0">
+                    <label class="custom-control-label" for="customRadio">Unpaid</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="customRadio2" name="is_paid" value="1">
+                    <label class="custom-control-label" for="customRadio2">Paid</label>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <div class="col-md-6">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="customCheck" name="invoice_automatically">
+            <label class="custom-control-label" for="customCheck">Invoice Automatically</label>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group {{ $errors->has('days') ? 'has-error' : ''}}">
+            {!! Form::label('days', 'Days', ['class' => 'control-label']) !!}
+            {!! Form::select('days', $days, null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+            {!! $errors->first('days', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group {{ $errors->has('invoice_email') ? 'has-error' : ''}}">
+            {!! Form::label('invoice_email', 'Invoice Email', ['class' => 'control-label']) !!}
+            {!! Form::email('invoice_email', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+            {!! $errors->first('invoice_email', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+</div>
 
 
 <div class="row">

@@ -35,8 +35,8 @@ Customers
                                         <th>#</th>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Phone Number</th>
                                         <th>Business Name</th>
-                                        <th>Address</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -46,8 +46,8 @@ Customers
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
+                                        <td>{{ $item->phone_number }}</td>
                                         <td>{{ $item->business_name }}</td>
-                                        <td>{{ $item->address }}</td>
                                         <td>
                                             <a href="{{ url('/customers/' . $item->id) }}" title="View Role"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/customers/' . $item->id . '/edit') }}" title="Edit Role"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

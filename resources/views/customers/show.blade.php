@@ -44,6 +44,10 @@ Customer {{ $customer->id }}
                                         <td> {{ $customer->email }} </td>
                                     </tr>
                                     <tr>
+                                        <th> Phone Number </th>
+                                        <td> {{ $customer->phone_number }} </td>
+                                    </tr>
+                                    <tr>
                                         <th> Business Name </th>
                                         <td> {{ $customer->business_name }} </td>
                                     </tr>
@@ -62,6 +66,10 @@ Customer {{ $customer->id }}
                                     <tr>
                                         <th> Zip </th>
                                         <td> {{ $customer->zip }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> Monthly Amount </th>
+                                        <td> {{ $customer->monthly_payment }} </td>
                                     </tr>
                                 </tbody>
                             </table>
