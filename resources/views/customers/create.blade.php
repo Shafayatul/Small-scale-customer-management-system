@@ -35,3 +35,21 @@ Create New Customer
         </div>
     </div>
 @endsection
+@section('footer-additional-script')
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#invoice_auto").hide(500);
+        $('input[type="checkbox"]').click(function(){
+             
+            if($(this).prop("checked") == true){
+                $("#invoice_auto").show(500);
+            }
+            else if($(this).prop("checked") == false){
+                $("#invoice_auto").hide(500);
+                $('.days').val([0]);
+                $('.invoice_email').val('');
+            }
+        });
+    });
+</script>
+@endsection

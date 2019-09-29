@@ -96,24 +96,24 @@
     </div>
     <div class="col-md-6">
         <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="customCheck" name="invoice_automatically">
-            <label class="custom-control-label" for="customCheck">Invoice Automatically</label>
+            <input type="checkbox" class="custom-control-input" id="customCheck" name="is_invoice_auto" value="1">
+            <label class="custom-control-label" for="customCheck">Invoice Automatically?</label>
         </div>
     </div>
 </div>
-
-<div class="row">
+<br/>
+<div class="row" id="invoice_auto">
     <div class="col-md-6">
         <div class="form-group {{ $errors->has('days') ? 'has-error' : ''}}">
             {!! Form::label('days', 'Days', ['class' => 'control-label']) !!}
-            {!! Form::select('days', $days, null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+            {!! Form::select('days', $days, null, ('' == 'required') ? ['class' => 'form-control days', 'required' => 'required'] : ['class' => 'form-control days']) !!}
             {!! $errors->first('days', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group {{ $errors->has('invoice_email') ? 'has-error' : ''}}">
             {!! Form::label('invoice_email', 'Invoice Email', ['class' => 'control-label']) !!}
-            {!! Form::email('invoice_email', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+            {!! Form::email('invoice_email', null, ('' == 'required') ? ['class' => 'form-control invoice_email', 'required' => 'required'] : ['class' => 'form-control invoice_email']) !!}
             {!! $errors->first('invoice_email', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
