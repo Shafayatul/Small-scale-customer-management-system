@@ -82,13 +82,19 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio" name="is_paid" value="0">
+                    <input type="radio" class="custom-control-input" id="customRadio" name="is_paid" value="0" 
+
+                        {{ $customer->is_paid == 0 ? 'checked' : '' }}
+
+
+                    >
                     <label class="custom-control-label" for="customRadio">Unpaid</label>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio2" name="is_paid" value="1">
+                    <input type="radio" class="custom-control-input" id="customRadio2" name="is_paid" value="1" 
+                    {{ $customer->is_paid == 1 ? 'checked' : '' }}>
                     <label class="custom-control-label" for="customRadio2">Paid</label>
                 </div>
             </div>
@@ -96,7 +102,9 @@
     </div>
     <div class="col-md-6">
         <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="customCheck" name="is_invoice_auto" value="1">
+            <input type="checkbox" class="custom-control-input" id="customCheck" name="is_invoice_auto" 
+            {{ $customer->is_invoice_auto == 1 ? 'checked' : '' }}
+            >
             <label class="custom-control-label" for="customCheck">Invoice Automatically?</label>
         </div>
     </div>

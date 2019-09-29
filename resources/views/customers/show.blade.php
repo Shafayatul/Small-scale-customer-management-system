@@ -68,9 +68,40 @@ Customer {{ $customer->id }}
                                         <td> {{ $customer->zip }} </td>
                                     </tr>
                                     <tr>
+                                        <th> Is paid? </th>
+                                        <td>
+                                            @if($customer->is_paid == 1) 
+                                                <span class="text-success">Paid</span>
+                                            @else
+                                                <span class="text-danger">Unpaid</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <th> Monthly Amount </th>
                                         <td> {{ $customer->monthly_payment }} </td>
                                     </tr>
+                                    <tr>
+                                        <th> Is Invoice Automatically? </th>
+                                        <td>
+                                            @if($customer->is_invoice_auto == 1) 
+                                                <span class="text-success">Yes</span>
+                                            @else
+                                                <span class="text-danger">No</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @if($customer->is_invoice_auto == 1)
+                                        <tr>
+                                            <th> Day </th>
+                                            <td> {{ $customer->days }} </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th> Invoice Email </th>
+                                            <td> {{ $customer->invoice_email }} </td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
