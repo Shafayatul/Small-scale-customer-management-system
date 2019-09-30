@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+
 use App\Invoice;
 use Illuminate\Http\Request;
-
+use PDF;
 
 
 class InvoicesController extends Controller
@@ -29,6 +30,7 @@ class InvoicesController extends Controller
      */
     public function create()
     {
+
         return view('invoices.create');
     }
 
@@ -53,23 +55,9 @@ class InvoicesController extends Controller
         //     $invoice->save();
         // }
 
-        // $product = $request->product_name;
-        // $desc = $request->description;
-        // $price = $request->amount;;
-        // $their_practice = $request->business_name;
-        // $their_address1 = $request->address;
-        // $their_address2 = $request->city.' '.$request->state.' '.$request->zip;
-        // $due_date = date("y-m-d");
-
-
-        // $fpdf->AddPage();
-        // $fpdf->Output();
-        // $response = response($fpdf->Output('S'));
-        // $response->header('Content-Type', 'application/pdf');
-
-        // return $response;
-
-        // return 'success';
+        $pdf = PDF::loadView('pdfs.invoice');
+        return $pdf->stream('invoice.pdf');
+        // return view('pdfs.invoice');
     }
 
     /**

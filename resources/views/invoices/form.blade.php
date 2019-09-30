@@ -38,21 +38,21 @@
     <div class="col-md-3">
         <div class="form-group {{ $errors->has('product_name') ? 'has-error' : ''}}">
             {!! Form::label('product_name', 'Product Name', ['class' => 'control-label']) !!}
-            {!! Form::text('product_name[]', null, ('' == 'required') ? ['class' => 'form-control product_name', 'required' => 'required', 'serial'=>'1', 'id' => 'product_name_1'] : ['class' => 'form-control product_name', 'serial'=>'1', 'id' => 'product_name_1']) !!}
+            {!! Form::text('product_name', null, ('' == 'required') ? ['class' => 'form-control product_name', 'required' => 'required', 'serial'=>'1', 'id' => 'product_name_1'] : ['class' => 'form-control product_name', 'serial'=>'1', 'id' => 'product_name_1']) !!}
             {!! $errors->first('product_name', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="col-md-3">
         <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
             {!! Form::label('description', 'Description', ['class' => 'control-label']) !!}
-            {!! Form::text('description[]', null, ('' == 'required') ? ['class' => 'form-control description', 'required' => 'required', 'serial'=>'1', 'id' => 'description_1'] : ['class' => 'form-control description', 'serial'=>'1', 'id' => 'description_1']) !!}
+            {!! Form::text('description', null, ('' == 'required') ? ['class' => 'form-control description', 'required' => 'required', 'serial'=>'1', 'id' => 'description_1'] : ['class' => 'form-control description', 'serial'=>'1', 'id' => 'description_1']) !!}
             {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="col-md-3">
         <div class="form-group {{ $errors->has('amount') ? 'has-error' : ''}}">
             {!! Form::label('amount', 'Amount', ['class' => 'control-label']) !!}
-            {!! Form::number('amount[]', null, ('' == 'required') ? ['class' => 'form-control amount', 'required' => 'required', 'serial' => '1', 'id' => 'amount_1'] : ['class' => 'form-control amount', 'serial' => '1', 'id' => 'amount_1']) !!}
+            {!! Form::number('amount', null, ('' == 'required') ? ['class' => 'form-control amount', 'required' => 'required', 'serial' => '1', 'id' => 'amount_1'] : ['class' => 'form-control amount', 'serial' => '1', 'id' => 'amount_1']) !!}
             {!! $errors->first('amount', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
