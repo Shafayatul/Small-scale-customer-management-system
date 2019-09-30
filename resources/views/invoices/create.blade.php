@@ -18,7 +18,7 @@ Create New Invoice
                 <div class="card">
                     <div class="card-header">Create New Invoice</div>
                     <div class="card-body">
-                        <a href="{{ url('/invoices') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/customers') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -44,7 +44,10 @@ Create New Invoice
 @endsection
 @section('footer-additional-script')
 <script type="text/javascript">
-        var rowCount = 1;
+        var rowCount = '{{ count($products) }}';
+        if (rowCount == '0') {
+            rowCount = 1;
+        }
     function addMoreRows(frm) {
         rowCount ++;
         var html = '<div class="row" id="registration'+rowCount+'"><div class="col-md-3"><div class="form-group "><label for="product_name" class="control-label">Product</label><input class="form-control product_name" id="product_name_'+rowCount+'" serial="'+rowCount+'" name="product_name[]" type="text"></div></div><div class="col-md-3"><div class="form-group "><label for="description" class="control-label">Description</label><input class="form-control description" id="description_'+rowCount+'" serial="'+rowCount+'" name="description[]" type="text"></div></div><div class="col-md-3"><div class="form-group"><label for="amount" class="control-label">Amount</label><input class="form-control amount" id="amount_'+rowCount+'" serial="'+rowCount+'" name="amount[]" type="number"></div></div><div class="col-md-3"><button type="button" class="removeButton  btn btn-danger btn-sm" serial="'+rowCount+'"> <i  class="fas fa-trash-alt"></i></button></div></div>';
@@ -56,5 +59,10 @@ Create New Invoice
         var deleteRowSerial = $(this).attr('serial');
         $("#registration"+deleteRowSerial).remove();
      });
+
+    $(document).on('click','#save-and-email',function(){
+        $("#is-save-and-email").val("1");
+     });
+
 </script>
 @endsection

@@ -30,7 +30,7 @@ Edit Invoice #{{ $invoice->id }}
                             'files' => true
                         ]) !!}
 
-                        @include ('invoices.form', ['formMode' => 'edit'])
+                        @include ('invoices.edit-form', ['formMode' => 'edit'])
 
                         {!! Form::close() !!}
 

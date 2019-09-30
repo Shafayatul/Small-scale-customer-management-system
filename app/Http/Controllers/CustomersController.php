@@ -7,7 +7,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Customer;
+use App\Invoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\InvoicePdf;
+use Carbon\Carbon;
 
 class CustomersController extends Controller
 {
@@ -52,7 +56,19 @@ class CustomersController extends Controller
     public function invoiceCreate($id)
     {
         $customer = Customer::findOrFail($id);
-        return view('invoices.create', compact('customer'));
+        $products = Invoice::where('user_id', $id)->get();
+        return view('invoices.create', compact('customer', 'products'));
+    }
+
+    public static function invoiceEmail($id)
+    {
+        $customer     = Customer::findOrFail($id);
+        $products     = Invoice::where('user_id', $id)->get();
+        $ref          = date('y-m-d').'-'.mt_rand(1,1000);
+        $billing_date = Carbon::today()->format('d/m/Y');
+        $due_date     = Carbon::today()->format('d/m/Y');
+        Mail::to($customer->email)->send(new InvoicePdf($customer, $products, $ref, $billing_date, $due_date));
+        // return redirect()->back()->with('success', 'Successfully Sent Email!');
     }
 
     /**
@@ -86,7 +102,8 @@ class CustomersController extends Controller
         $customer->invoice_email   = $request->invoice_email;
         $customer->save();
 
-        return redirect('customers')->with('success', 'Customer added!');
+
+        return redirect(url('customer-invoice/'.$customer->id))->with('success', 'Customer added!');
     }
 
     /**

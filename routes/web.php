@@ -22,3 +22,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('customers', 'CustomersController');
 Route::get('/customer-invoice/{id}', 'CustomersController@invoiceCreate');
 Route::resource('invoices', 'InvoicesController');
+Route::get('invoice-email/{id}', 'CustomersController@invoiceEmail');

@@ -96,19 +96,27 @@
 		.billing-info{
 			margin-left: 10%;
 		}
+
+		.margin-bottom-1{
+			margin-bottom: 10px;
+		}
+		.margin-bottom-2{
+			padding-bottom: 20px !important;
+		}
 	</style>
 </head>
 <body>
 	<div class="container">
-		<div class="row">
-			<div class="col-12 text-right">
-				<h2 class="uppercase"><b>Invoice</b></h2>
-				<p class="header-p"><span class="light-blue" style="margin-right: 12px;">Reference:</span> {{ $ref }}</p>
-				<p class="header-p"><span class="light-blue" style="margin-right: 18px;">Billing Date:</span> {{ $billing_date }}</p>
-				<p class="header-p"><span class="light-blue" style="margin-right: 34px;">Due Date:</span> {{ $due_date }}</p>
+
+		<div class="row" style="padding-bottom: 20px !important;">
+			<div class="col-12">
+				<h2 class="uppercase  text-right" style="padding-bottom: 10px;"><b>Invoice</b></h2>
+				<p class="header-p text-right"><span class="light-blue" style="margin-right: 12px;">Reference:</span> {{ $ref }}</p>
+				<p class="header-p text-right"><span class="light-blue" style="margin-right: 18px;">Billing Date:</span> {{ $billing_date }}</p>
+				<p class="header-p text-right"><span class="light-blue" style="margin-right: 34px;">Due Date:</span> {{ $due_date }}</p>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" style="padding-bottom: 20px !important;">
 			<div class="col-6">
 				<h3 class="light-blue">OUR INFORMATION</h3>
 				<hr class="hr-with-margin">
@@ -127,7 +135,7 @@
 			</div>
 		</div>
 
-		<div class="row">
+		<div class="row" style="padding-bottom: 20px !important;">
 			<div class="col-12">
 				<table>
 						<tr style="height: 40px; border-bottom: 1px solid #17579F!important;">
@@ -146,11 +154,11 @@
 						</tr>
 					@foreach($products as $product)
 						<tr>
-							<td style="width: 60%; background-color: #ececec; height: 50px; margin-top: 20px; margin-left: 10px;">{{ $product->product_name }}</td>
+							<td style="width: 50%; background-color: #ececec; height: 50px; margin-top: 20px; margin-left: 10px; padding-left: 5px;">{{ $product->product_name }}</td>
 							<td style="width: .1%; background-color: #fff; height: 50px; margin-top: 20px;"></td>
 							<td style="width: 25%; background-color: #ececec; height: 50px; margin-top: 20px; text-align: center;">{{ $product->description }}</td>
 							<td style="width: .1%; background-color: #fff; height: 50px; margin-top: 20px;"></td>
-							<td style="width: 10%; background-color: #ececec; height: 50px; margin-top: 20px; text-align: center;">{{ $product->amount }}</td>
+							<td style="width: 20%; background-color: #ececec; height: 50px; margin-top: 20px; text-align: center;">{{ $product->amount }}</td>
 						</tr>
 					@endforeach
 					<tr>
