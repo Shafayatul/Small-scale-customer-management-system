@@ -55,9 +55,12 @@ class CustomersController extends Controller
 
     public function invoiceCreate($id)
     {
+        $days = [
+            '0' => '--Select Day--', '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10', '11' => '11', '12' => '12', '13' => '13', '14' => '14', '15' => '15', '16' =>'16', '17' => '17', '18' => '18', '19' => '19', '20' => '20', '21' => '21', '22' => '22', '23' => '23', '24' => '24', '25' => '25', '26' => '26', '27' => '27', '28' => '28'
+        ];
         $customer = Customer::findOrFail($id);
         $products = Invoice::where('user_id', $id)->get();
-        return view('invoices.create', compact('customer', 'products'));
+        return view('invoices.create', compact('customer', 'products', 'days'));
     }
 
     public static function invoiceEmail($id)
@@ -95,8 +98,6 @@ class CustomersController extends Controller
         $customer->city            = $request->city;
         $customer->state           = $request->state;
         $customer->zip             = $request->zip;
-        $customer->monthly_payment = $request->monthly_payment;
-        $customer->is_paid         = $request->is_paid;
         $customer->is_invoice_auto = $is_invoice_auto;
         $customer->days            = $request->days;
         $customer->invoice_email   = $request->invoice_email;
@@ -160,8 +161,6 @@ class CustomersController extends Controller
         $customer->city            = $request->city;
         $customer->state           = $request->state;
         $customer->zip             = $request->zip;
-        $customer->monthly_payment = $request->monthly_payment;
-        $customer->is_paid         = $request->is_paid;
         $customer->is_invoice_auto = $is_invoice_auto;
         $customer->days            = $request->days;
         $customer->invoice_email   = $request->invoice_email;

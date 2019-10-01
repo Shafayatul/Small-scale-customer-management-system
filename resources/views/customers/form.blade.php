@@ -35,6 +35,23 @@
 
 <div class="row">
     <div class="col-md-6">
+        <div class="form-group {{ $errors->has('address') ? 'has-error' : ''}}">
+            {!! Form::label('address', 'Address', ['class' => 'control-label']) !!}
+            {!! Form::textarea('address', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required', 'rows' => 2, 'cols' => 40] : ['class' => 'form-control', 'rows' => 2, 'cols' => 40]) !!}
+            {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group {{ $errors->has('city') ? 'has-error' : ''}}">
+            {!! Form::label('city', 'City', ['class' => 'control-label']) !!}
+            {!! Form::text('city', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+            {!! $errors->first('city', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
         <div class="form-group {{ $errors->has('state') ? 'has-error' : ''}}">
             {!! Form::label('state', 'State', ['class' => 'control-label']) !!}
             {!! Form::text('state', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
@@ -43,64 +60,17 @@
     </div>
     <div class="col-md-6">
         <div class="form-group {{ $errors->has('zip') ? 'has-error' : ''}}">
-            {!! Form::label('zip', 'Zip', ['class' => 'control-label']) !!}
+            {!! Form::label('zip', 'Zip Code', ['class' => 'control-label']) !!}
             {!! Form::text('zip', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
             {!! $errors->first('zip', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-group {{ $errors->has('city') ? 'has-error' : ''}}">
-            {!! Form::label('city', 'City', ['class' => 'control-label']) !!}
-            {!! Form::text('city', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
-            {!! $errors->first('city', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group {{ $errors->has('monthly_payment') ? 'has-error' : ''}}">
-            {!! Form::label('monthly_payment', 'Monthly Payment', ['class' => 'control-label']) !!}
-            {!! Form::text('monthly_payment', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
-            {!! $errors->first('monthly_payment', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
-</div>
+
 
 <div class="row">
     <div class="col-md-12">
-        <div class="form-group {{ $errors->has('address') ? 'has-error' : ''}}">
-            {!! Form::label('address', 'Address', ['class' => 'control-label']) !!}
-            {!! Form::textarea('address', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
-            {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-6">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio" name="is_paid" value="0" 
-
-                        {{ $customer->is_paid == 0 ? 'checked' : '' }}
-
-
-                    >
-                    <label class="custom-control-label" for="customRadio">Unpaid</label>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio2" name="is_paid" value="1" 
-                    {{ $customer->is_paid == 1 ? 'checked' : '' }}>
-                    <label class="custom-control-label" for="customRadio2">Paid</label>
-                </div>
-            </div>
-        </div> 
-    </div>
-    <div class="col-md-6">
         <div class="custom-control custom-checkbox">
             <input type="checkbox" class="custom-control-input" id="customCheck" name="is_invoice_auto" 
             {{ $customer->is_invoice_auto == 1 ? 'checked' : '' }}

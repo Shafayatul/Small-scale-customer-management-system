@@ -16,9 +16,12 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->increments('id');
             $table->string('user_id')->nullable();
-            $table->string('product_name')->nullable();
-            $table->longText('description')->nullable();
-            $table->integer('amount')->nullable();
+            $table->boolean('is_autometic')->nullable();
+            $table->integer('autometic_email_day')->nullable();
+            $table->string('invoice_email')->nullable();
+            $table->integer('total_amount')->nullable();
+            $table->boolean('is_paid')->nullable();
+            $table->date('last_email_date')->nullable();
             $table->timestamps();
         });
     }

@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
+class Product extends Model
 {
-    /**
+     /**
     * The database table used by the model.
     *
     * @var string
     */
-    protected $table = 'customers';
+    protected $table = 'products';
     /**
     * The database primary key value.
     *
@@ -23,5 +23,5 @@ class Customer extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'phone_number', 'business_name', 'address', 'city', 'state', 'zip', 'is_invoice_auto', 'days', 'invoice_email'];
+    protected $fillable = ['invoice_id', 'user_id', 'product_name', 'description', 'amount'];
 }
