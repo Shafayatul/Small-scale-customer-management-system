@@ -178,6 +178,8 @@ class CustomersController extends Controller
      */
     public function destroy($id)
     {
+        Product::where('user_id', $id)->delete();
+        Invoice::where('user_id', $id)->delete();
         Customer::destroy($id);
         return redirect('customers')->with('success', 'Customer deleted!');
     }
