@@ -60,14 +60,33 @@ class InvoicesController extends Controller
             $sum_amount += $value;
         }
 
+
+        if($request->is_save_and_email == '1'){
+            $last_email_date = Carbon::today()->format('Y-m-d');
+        }else{
+            $last_email_date = null;
+        }
+
+        if($request->is_paid == '1'){
+            $is_paid = 1;
+        }else{
+            $is_paid = 0;
+        }
+
+        if (isset($request->is_autometic)) {
+            $is_autometic = 1;
+        }else{
+            $is_autometic = 0;
+        }
+
         $invoice                      = new Invoice;
         $invoice->user_id             = $request->customer_id;
-        $invoice->is_autometic        = $request->is_autometic;
+        $invoice->is_autometic        = $is_autometic;
         $invoice->autometic_email_day = $request->autometic_email_day;
         $invoice->invoice_email       = $request->invoice_email;
         $invoice->total_amount        = $sum_amount;
-        $invoice->is_paid             = $request->is_paid;
-        $invoice->last_email_date     = $request->last_email_date;
+        $invoice->is_paid             = $is_paid;
+        $invoice->last_email_date     = $last_email_date;
         $invoice->save();
 
         foreach ($request->product_name as $key => $value) {
