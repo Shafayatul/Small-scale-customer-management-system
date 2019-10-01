@@ -86,7 +86,7 @@ class InvoicesController extends Controller
         $due_date     = Carbon::today()->format('d/m/Y');
 
         if($request->is_save_and_email == '1'){
-            $this->invoiceEmail($request->customer_id);
+            $this->invoiceEmail($invoice->id);
         }
 
         $customer     = Customer::findOrFail($request->customer_id);
@@ -99,13 +99,30 @@ class InvoicesController extends Controller
 
     public function invoiceEmail($id)
     {
-        $customer     = Customer::findOrFail($id);
-        $products     = Invoice::where('user_id', $id)->get();
+        $invoice      = Invoice::findOrFail($id);
+        $customer     = Customer::where('id',$invoice->user_id)->first();
+        $products     = Product::where('invoice_id', $id)->get();
         $ref          = date('y-m-d').'-'.mt_rand(1,1000);
         $billing_date = Carbon::today()->format('d/m/Y');
         $due_date     = Carbon::today()->format('d/m/Y');
         Mail::to($customer->email)->send(new InvoicePdf($customer, $products, $ref, $billing_date, $due_date));
         return true;
+    }
+
+    public function invoiceEmailReminder($id)
+    {
+        $invoice      = Invoice::findOrFail($id);
+        $invoice->last_email_date = date("Y-m-d");
+        $invoice->save();
+
+        $customer     = Customer::where('id',$invoice->user_id)->first();
+        $products     = Product::where('invoice_id', $id)->get();
+        $ref          = date('y-m-d').'-'.mt_rand(1,1000);
+        $billing_date = Carbon::parse($invoice->created_at)->format('d/m/Y');
+        $due_date     = Carbon::parse($invoice->created_at)->format('d/m/Y');
+        Mail::to($customer->email)->send(new InvoicePdf($customer, $products, $ref, $billing_date, $due_date));
+
+        return redirect('/customers/'.$invoice->user_id)->with('success', 'Sent Email Successfully!');
     }
 
     /**
@@ -164,7 +181,29 @@ class InvoicesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Product::where('invoice_id', $id)->delete();
+
+        $sum_amount = 0;
+        foreach ($request->amount as $key => $value) {
+            $sum_amount += $value;
+        }
+
+        $invoice                      = Invoice::findOrFail($id);
+        $invoice->total_amount        = $sum_amount;
+        $invoice->save();
+
+        foreach ($request->product_name as $key => $value) {
+            $product               = new Product;
+            $product->invoice_id   = $invoice->id;
+            $product->user_id      = $invoice->user_id;
+            $product->product_name = $value;
+            $product->description  = $request->description[$key];
+            $product->amount       = $request->amount[$key];
+            $product->save();
+
+        }
+
+        return redirect('/customers/'.$invoice->user_id)->with('success', 'Product Updated!');
     }
 
     /**
@@ -175,6 +214,25 @@ class InvoicesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $invoice          = Invoice::findOrFail($id);
+        Product::where('invoice_id', $id)->delete();
+        Invoice::destroy($id);
+        return redirect('/customers/'.$invoice->user_id)->with('success', 'Invoice Updated!');
+    }
+
+    public function unpaid($id)
+    {
+        $invoice          = Invoice::findOrFail($id);
+        $invoice->is_paid = 0;
+        $invoice->save();
+        return redirect('/customers/'.$invoice->user_id)->with('success', 'Invoice Updated!');
+    }
+
+    public function paid($id)
+    {
+        $invoice          = Invoice::findOrFail($id);
+        $invoice->is_paid = 1;
+        $invoice->save();
+        return redirect('/customers/'.$invoice->user_id)->with('success', 'Invoice Updated!');
     }
 }

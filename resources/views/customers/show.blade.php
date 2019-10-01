@@ -3,6 +3,7 @@
 Customer {{ $customer->id }}
 @endsection
 @section('content')
+@include('layouts.admin.include.alert')
     <div class="container">
         <div class="row">
 
@@ -22,7 +23,7 @@ Customer {{ $customer->id }}
                             {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-sm',
-                                    'title' => 'Delete Role',
+                                    'title' => 'Delete Customer',
                                     'onclick'=>'return confirm("Confirm delete?")'
                             ))!!}
                         {!! Form::close() !!}
@@ -112,12 +113,21 @@ Customer {{ $customer->id }}
                                     <th>Actions</th>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $paid_amount = 0;
+                                        $unpaid_amount = 0;
+                                    @endphp
                                     @foreach($invoices as $item)
+                                    @if($item->is_paid == 1)
+                                        @php $paid_amount = $paid_amount + $item->total_amount; @endphp
+                                    @else
+                                        @php $unpaid_amount = $unpaid_amount + $item->total_amount; @endphp 
+                                    @endif
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
                                         <td>
-                                            @if($item->is_paid)
+                                            @if($item->is_paid == 1)
                                                 <span style="color: green;">Paid</span>
                                             @else
                                                 <span style="color: red;">Unpaid</span>
@@ -128,9 +138,47 @@ Customer {{ $customer->id }}
                                             <a href="{{ url('/invoice-pdf-view/' . $item->id) }}" title="View Pdf"><button class="btn btn-primary btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                             <a href="{{ url('/invoice-pdf-download/' . $item->id) }}" title="Download Pdf"><button class="btn btn-info btn-sm"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></a>
                                             <a href="{{ url('/invoice-edit/' . $item->id) }}" title="Edit Role"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+
+                                            @if($item->is_paid == 1)
+                                                <a href="{{ url('/invoice-unpaid/' . $item->id) }}" title="Paid To Unpaid"><button class="btn btn-warning btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Unpaid</button></a>
+                                            @else
+                                                <a href="{{ url('/invoice-paid/' . $item->id) }}" title="Unpaid To Paid"><button class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Paid</button></a>
+                                            @endif
+
+                                            @if($item->is_paid == 0)
+                                                <a href="{{ url('/invoice-email-reminder/' . $item->id) }}" title="Paid To Unpaid"><button class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Email</button></a>
+                                            @endif
+
+                                            {!! Form::open([
+                                                'method'=>'DELETE',
+                                                'url' => ['/invoices', $item->id],
+                                                'style' => 'display:inline'
+                                            ]) !!}
+                                                {!! Form::button('<i class="fas fa-trash" aria-hidden="true"></i>', array(
+                                                        'type' => 'submit',
+                                                        'class' => 'btn btn-danger btn-sm',
+                                                        'title' => 'Delete Invoice',
+                                                        'onclick'=>'return confirm("Confirm delete?")'
+                                                )) !!}
+                                            {!! Form::close() !!}
                                         </td>
                                     </tr>
                                     @endforeach
+                                    <tr>
+                                        <td colspan="3" class="text-right">Total Paid</td>
+                                        <td>{{ $paid_amount }}</td>
+                                        <td></td>
+                                    </tr> 
+                                    <tr>
+                                        <td colspan="3" class="text-right">Total Unpaid</td>
+                                        <td>{{ $unpaid_amount }}</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="text-right">Total Amount</td>
+                                        <td>{{ $paid_amount + $unpaid_amount }}</td>
+                                        <td></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
