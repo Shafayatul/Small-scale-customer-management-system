@@ -18,6 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/password-change', 'UsersController@passwordChangeView');
+Route::post('/password-update', 'UsersController@passwordChange');
 
 Route::resource('customers', 'CustomersController');
 Route::get('/customer-invoice/{id}', 'CustomersController@invoiceCreate');
@@ -29,3 +31,4 @@ Route::get('/invoice-pdf-download/{id}', 'InvoicesController@pdfDownload');
 Route::get('/invoice-edit/{id}', 'InvoicesController@edit');
 Route::get('/invoice-unpaid/{id}', 'InvoicesController@unpaid');
 Route::get('/invoice-paid/{id}', 'InvoicesController@paid');
+
