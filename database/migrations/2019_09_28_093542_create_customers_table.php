@@ -23,9 +23,6 @@ class CreateCustomersTable extends Migration
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('zip')->nullable();
-            $table->boolean('is_invoice_auto')->nullable();
-            $table->integer('days')->nullable();
-            $table->string('invoice_email')->nullable();
             $table->timestamps();
         });
     }

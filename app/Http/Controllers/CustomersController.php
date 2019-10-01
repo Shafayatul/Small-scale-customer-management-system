@@ -84,12 +84,6 @@ class CustomersController extends Controller
     public function store(Request $request)
     {
 
-        if(isset($request->is_invoice_auto)){
-            $is_invoice_auto = 1;
-        }else{
-            $is_invoice_auto = 0;
-        }
-
         $customer                  = new Customer;
         $customer->name            = $request->name;
         $customer->email           = $request->email;
@@ -99,9 +93,6 @@ class CustomersController extends Controller
         $customer->city            = $request->city;
         $customer->state           = $request->state;
         $customer->zip             = $request->zip;
-        $customer->is_invoice_auto = $is_invoice_auto;
-        $customer->days            = $request->days;
-        $customer->invoice_email   = $request->invoice_email;
         $customer->save();
 
 
@@ -147,13 +138,6 @@ class CustomersController extends Controller
     public function update(Request $request, $id)
     {
         $customer = Customer::findOrFail($id);
-
-        if(isset($request->is_invoice_auto)){
-            $is_invoice_auto = 1;
-        }else{
-            $is_invoice_auto = 0;
-        }
-
         $customer->name            = $request->name;
         $customer->email           = $request->email;
         $customer->phone_number    = $request->phone_number;
@@ -162,9 +146,6 @@ class CustomersController extends Controller
         $customer->city            = $request->city;
         $customer->state           = $request->state;
         $customer->zip             = $request->zip;
-        $customer->is_invoice_auto = $is_invoice_auto;
-        $customer->days            = $request->days;
-        $customer->invoice_email   = $request->invoice_email;
         $customer->save();
 
         return redirect('customers')->with('success', 'Customer updated!');
