@@ -37,7 +37,7 @@
     <div class="col-md-6">
         <div class="form-group {{ $errors->has('address') ? 'has-error' : ''}}">
             {!! Form::label('address', 'Address', ['class' => 'control-label']) !!}
-            {!! Form::textarea('address', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required', 'rows' => 2, 'cols' => 40] : ['class' => 'form-control', 'rows' => 2, 'cols' => 40]) !!}
+            {!! Form::text('address', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
             {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
         </div>
     </div>

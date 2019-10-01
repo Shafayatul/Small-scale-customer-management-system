@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 use App\Customer;
 use App\Invoice;
+use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\InvoicePdf;
@@ -59,14 +60,14 @@ class CustomersController extends Controller
             '0' => '--Select Day--', '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10', '11' => '11', '12' => '12', '13' => '13', '14' => '14', '15' => '15', '16' =>'16', '17' => '17', '18' => '18', '19' => '19', '20' => '20', '21' => '21', '22' => '22', '23' => '23', '24' => '24', '25' => '25', '26' => '26', '27' => '27', '28' => '28'
         ];
         $customer = Customer::findOrFail($id);
-        $products = Invoice::where('user_id', $id)->get();
+        $products = Product::where('user_id', $id)->get();
         return view('invoices.create', compact('customer', 'products', 'days'));
     }
 
     public static function invoiceEmail($id)
     {
         $customer     = Customer::findOrFail($id);
-        $products     = Invoice::where('user_id', $id)->get();
+        $products     = Product::where('user_id', $id)->get();
         $ref          = date('y-m-d').'-'.mt_rand(1,1000);
         $billing_date = Carbon::today()->format('d/m/Y');
         $due_date     = Carbon::today()->format('d/m/Y');
@@ -116,8 +117,8 @@ class CustomersController extends Controller
     public function show($id)
     {
         $customer = Customer::findOrFail($id);
-
-        return view('customers.show', compact('customer'));
+        $invoices = Invoice::where('user_id', $id)->get();
+        return view('customers.show', compact('customer', 'invoices'));
     }
 
     /**

@@ -8,11 +8,12 @@ Customer {{ $customer->id }}
 
             <div class="col-md-10 offset-1">
                 <div class="card">
-                    <div class="card-header">Customer {{ $customer->id }}</div>
+                    <div class="card-header">Customer {{ $customer->name }}</div>
                     <div class="card-body">
 
                         <a href="{{ url('/customers') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <a href="{{ url('/customers/' . $customer->id . '/edit') }}" title="Edit Role"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                        <a href="{{ url('/customer-invoice/' . $customer->id) }}" title="View Role"><button class="btn btn-success btn-sm"><i class="fas fa-file-invoice" aria-hidden="true"></i> Invoice</button></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['customers', $customer->id],
@@ -31,10 +32,6 @@ Customer {{ $customer->id }}
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <tbody>
-                                    <tr>
-                                        <th>ID</th>
-                                        <td>{{ $customer->id }}</td>
-                                    </tr>
                                     <tr>
                                         <th> Name </th>
                                         <td> {{ $customer->name }} </td>
@@ -68,20 +65,6 @@ Customer {{ $customer->id }}
                                         <td> {{ $customer->zip }} </td>
                                     </tr>
                                     <tr>
-                                        <th> Is paid? </th>
-                                        <td>
-                                            @if($customer->is_paid == 1) 
-                                                <span class="text-success">Paid</span>
-                                            @else
-                                                <span class="text-danger">Unpaid</span>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th> Monthly Amount </th>
-                                        <td> {{ $customer->monthly_payment }} </td>
-                                    </tr>
-                                    <tr>
                                         <th> Is Invoice Automatically? </th>
                                         <td>
                                             @if($customer->is_invoice_auto == 1) 
@@ -110,5 +93,52 @@ Customer {{ $customer->id }}
                 </div>
             </div>
         </div>
+        <br/>
+        <br/>
+
+        <div class="row">
+
+            <div class="col-md-10 offset-1">
+                <div class="card">
+                    <div class="card-header">Customer {{ $customer->name }}</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <th>#</th>
+                                    <th>Invoice Create Date</th>
+                                    <th>Is Paid</th>
+                                    <th>Amount</th>
+                                    <th>Actions</th>
+                                </thead>
+                                <tbody>
+                                    @foreach($invoices as $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
+                                        <td>
+                                            @if($item->is_paid)
+                                                <span style="color: green;">Paid</span>
+                                            @else
+                                                <span style="color: red;">Unpaid</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $item->total_amount }}</td>
+                                        <td>
+                                            <a href="{{ url('/invoice-pdf-view/' . $item->id) }}" title="View Pdf"><button class="btn btn-primary btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                            <a href="{{ url('/invoice-pdf-download/' . $item->id) }}" title="Download Pdf"><button class="btn btn-info btn-sm"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></a>
+                                            <a href="{{ url('/invoice-edit/' . $item->id) }}" title="Edit Role"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 @endsection

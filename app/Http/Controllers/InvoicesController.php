@@ -90,7 +90,7 @@ class InvoicesController extends Controller
         }
 
         $customer     = Customer::findOrFail($request->customer_id);
-        $products     = Product::where('user_id', $request->customer_id)->get();
+        $products     = Product::where('user_id', $request->customer_id)->where('invoice_id', $invoice->id)->get();
         $pdf = PDF::loadView('pdfs.invoice', compact('customer', 'products', 'ref', 'billing_date', 'due_date'));
         
         return $pdf->download('invoice.pdf');
@@ -119,6 +119,29 @@ class InvoicesController extends Controller
         //
     }
 
+    public function pdfView($id){
+        $ref          = date('y-m-d').'-'.mt_rand(1,1000);
+        $billing_date = Carbon::today()->format('d/m/Y');
+        $due_date     = Carbon::today()->format('d/m/Y');
+        $invoice      = Invoice::findOrFail($id);
+        $customer     = Customer::findOrFail($invoice->user_id);
+        $products     = Product::where('user_id', $invoice->user_id)->where('invoice_id', $invoice->id)->get();
+        $pdf          = PDF::loadView('pdfs.invoice', compact('customer', 'products', 'ref', 'billing_date', 'due_date'));
+        return $pdf->stream($ref.'.pdf');
+    }
+
+    public function pdfDownload($id)
+    {
+        $ref          = date('y-m-d').'-'.mt_rand(1,1000);
+        $billing_date = Carbon::today()->format('d/m/Y');
+        $due_date     = Carbon::today()->format('d/m/Y');
+        $invoice      = Invoice::findOrFail($id);
+        $customer     = Customer::findOrFail($invoice->user_id);
+        $products     = Product::where('user_id', $invoice->user_id)->where('invoice_id', $invoice->id)->get();
+        $pdf          = PDF::loadView('pdfs.invoice', compact('customer', 'products', 'ref', 'billing_date', 'due_date'));
+        return $pdf->download($ref.'.pdf');
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -127,7 +150,9 @@ class InvoicesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $invoice      = Invoice::findOrFail($id);
+        $products     = Product::where('user_id', $invoice->user_id)->where('invoice_id', $invoice->id)->get();
+        return view('invoices.edit', compact('invoice', 'products'));
     }
 
     /**
