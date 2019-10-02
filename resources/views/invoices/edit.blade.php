@@ -18,7 +18,7 @@ Edit Invoice #{{ $invoice->id }}
                 <div class="card">
                     <div class="card-header">Edit Invoice #{{ $invoice->id }}</div>
                     <div class="card-body">
-                        <a href="{{ url('/invoices') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/customers/'.$invoice->user_id) }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -69,19 +69,26 @@ Edit Invoice #{{ $invoice->id }}
     // $(document).on('click','#save-and-email',function(){
     //     $("#is-save-and-email").val("1");
     //  });
+$("#invoice_auto").hide(500);
+    if($('input[type="checkbox"]').prop("checked") == true){
+            $("#invoice_auto").show(500);
+        }
+        else if($('input[type="checkbox"]').prop("checked") == false){
+            $("#invoice_auto").hide(500);
+            $('.days').val([0]);
+        }
 
-    // $("#invoice_auto").hide(500);
-    // $('input[type="checkbox"]').click(function(){
+    
+    $('input[type="checkbox"]').click(function(){
          
-    //     if($(this).prop("checked") == true){
-    //         $("#invoice_auto").show(500);
-    //     }
-    //     else if($(this).prop("checked") == false){
-    //         $("#invoice_auto").hide(500);
-    //         $('.days').val([0]);
-    //         $('.invoice_email').val('');
-    //     }
-    // });
+        if($(this).prop("checked") == true){
+            $("#invoice_auto").show(500);
+        }
+        else if($(this).prop("checked") == false){
+            $("#invoice_auto").hide(500);
+            $('.days').val([0]);
+        }
+    });
 
 </script>
 @endsection

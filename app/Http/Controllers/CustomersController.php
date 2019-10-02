@@ -84,6 +84,24 @@ class CustomersController extends Controller
     public function store(Request $request)
     {
 
+        if (isset($request->is_autometic)) {
+            $is_autometic = 1;
+        }else{
+            $is_autometic = 0;
+        }
+
+        if($request->is_paid == '1'){
+            $is_paid = 1;
+        }else{
+            $is_paid = 0;
+        }
+
+        if($request->is_save_and_email == '1'){
+            $last_email_date = Carbon::today()->format('Y-m-d');
+        }else{
+            $last_email_date = null;
+        }
+
         $customer                  = new Customer;
         $customer->name            = $request->name;
         $customer->email           = $request->email;
@@ -93,10 +111,55 @@ class CustomersController extends Controller
         $customer->city            = $request->city;
         $customer->state           = $request->state;
         $customer->zip             = $request->zip;
+        $customer->is_paid         = $is_paid;
+        $customer->is_invoice_auto = $is_autometic;
+        $customer->days            = $request->days;
+        $customer->invoice_email   = $request->invoice_email;
         $customer->save();
 
 
-        return redirect(url('customer-invoice/'.$customer->id))->with('success', 'Customer added!');
+        $sum_amount = 0;
+        foreach ($request->amount as $key => $value) {
+            $sum_amount += $value;
+        }
+
+        $invoice                      = new Invoice;
+        $invoice->user_id             = $customer->id;
+        $invoice->is_autometic        = $is_autometic;
+        $invoice->autometic_email_day = $request->days;
+        $invoice->invoice_email       = $request->invoice_email;
+        $invoice->total_amount        = $sum_amount;
+        $invoice->is_paid             = $is_paid;
+        $invoice->last_email_date     = $last_email_date;
+        $invoice->save();
+
+        foreach ($request->product_name as $key => $value) {
+            $product               = new Product;
+            $product->invoice_id   = $invoice->id;
+            $product->user_id      = $customer->id;
+            $product->product_name = $value;
+            $product->description  = $request->description[$key];
+            $product->amount       = $request->amount[$key];
+            $product->save();
+
+        }
+
+        // $ref          = date('y-m-d').'-'.mt_rand(1,1000);
+        // $billing_date = Carbon::today()->format('d/m/Y');
+        // $due_date     = Carbon::today()->format('d/m/Y');
+
+        // if($request->is_save_and_email == '1'){
+        //     $this->invoiceEmail($invoice->id);
+        // }
+
+        // $customer     = Customer::findOrFail($request->customer_id);
+        // $products     = Product::where('user_id', $request->customer_id)->where('invoice_id', $invoice->id)->get();
+        // $pdf = PDF::loadView('pdfs.invoice', compact('customer', 'products', 'ref', 'billing_date', 'due_date'));
+        
+        // return $pdf->download('invoice.pdf');
+
+
+        return redirect(url('customers'))->with('success', 'Customer added!');
     }
 
     /**

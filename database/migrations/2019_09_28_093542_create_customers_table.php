@@ -19,6 +19,10 @@ class CreateCustomersTable extends Migration
             $table->string('email')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('business_name')->nullable();
+            $table->boolean('is_paid')->nullable();
+            $table->boolean('is_invoice_auto')->nullable();
+            $table->integer('days')->nullable();
+            $table->string('invoice_email')->nullable();
             $table->longText('address')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();

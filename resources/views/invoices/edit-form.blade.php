@@ -1,3 +1,56 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group {{ $errors->has('invoice_email') ? 'has-error' : ''}}">
+            {!! Form::label('invoice_email', 'Invoice Email', ['class' => 'control-label']) !!}
+            {!! Form::email('invoice_email', $invoice->invoice_email, ('' == 'required') ? ['class' => 'form-control invoice_email', 'required' => 'required'] : ['class' => 'form-control invoice_email']) !!}
+            {!! $errors->first('invoice_email', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="customRadio" name="is_paid" value="0" {{ $invoice->is_paid == 0 ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="customRadio">Unpaid</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="customRadio2" name="is_paid" value="1" {{ $invoice->is_paid == 1 ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="customRadio2">Paid</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="customCheck" name="is_autometic" {{ $invoice->is_autometic == 1 ? 'checked' : '' }}>
+            <label class="custom-control-label" for="customCheck">Invoice Automatically?</label>
+        </div>
+        
+    </div>
+</div>
+
+<br/>
+
+<div id="invoice_auto">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group {{ $errors->has('autometic_email_day') ? 'has-error' : ''}}">
+                {!! Form::label('autometic_email_day', 'Day', ['class' => 'control-label']) !!}
+                {!! Form::select('autometic_email_day', $days, null, ('' == 'required') ? ['class' => 'form-control days', 'required' => 'required'] : ['class' => 'form-control days']) !!}
+                {!! $errors->first('autometic_email_day', '<p class="help-block">:message</p>') !!}
+            </div>
+        </div>
+        
+    </div>
+
+</div>
+<br/>
 @foreach($products as $product)
     <div class="row" id="registration{{ $loop->iteration }}">
         <div class="col-md-3">

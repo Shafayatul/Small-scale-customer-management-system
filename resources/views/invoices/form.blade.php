@@ -14,23 +14,20 @@
 </div>
 <input type="hidden" name="customer_id" value="{{ $customer->id }}">
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="form-group">
             {!! Form::label('city', 'City', ['class' => 'control-label']) !!}
             <input type="text" name="city" value="{{ $customer->city }}" class="form-control" readonly="readonly">
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="form-group">
             {!! Form::label('state', 'State', ['class' => 'control-label']) !!}
             <input type="text" name="state" value="{{ $customer->state }}" class="form-control" readonly="readonly">
         </div>
     </div>
     <div class="col-md-4">
-        <div class="form-group">
-            {!! Form::label('zip', 'Zip', ['class' => 'control-label']) !!}
-            <input type="text" name="zip" value="{{ $customer->zip }}" class="form-control" readonly="readonly">
-        </div>
+        
     </div>
 </div>
 <br/>
@@ -52,27 +49,11 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="customCheck" name="is_autometic">
-            <label class="custom-control-label" for="customCheck">Invoice Automatically?</label>
+        <div class="form-group">
+            {!! Form::label('zip', 'Zip', ['class' => 'control-label']) !!}
+            <input type="text" name="zip" value="{{ $customer->zip }}" class="form-control" readonly="readonly">
         </div>
-    </div>
-</div>
-<br/>
-<div class="row" id="invoice_auto">
-    <div class="col-md-6">
-        <div class="form-group {{ $errors->has('autometic_email_day') ? 'has-error' : ''}}">
-            {!! Form::label('autometic_email_day', 'Days', ['class' => 'control-label']) !!}
-            {!! Form::select('autometic_email_day', $days, null, ('' == 'required') ? ['class' => 'form-control days', 'required' => 'required'] : ['class' => 'form-control days']) !!}
-            {!! $errors->first('autometic_email_day', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group {{ $errors->has('invoice_email') ? 'has-error' : ''}}">
-            {!! Form::label('invoice_email', 'Invoice Email', ['class' => 'control-label']) !!}
-            {!! Form::email('invoice_email', null, ('' == 'required') ? ['class' => 'form-control invoice_email', 'required' => 'required'] : ['class' => 'form-control invoice_email']) !!}
-            {!! $errors->first('invoice_email', '<p class="help-block">:message</p>') !!}
-        </div>
+        
     </div>
 </div>
 <br/>
