@@ -1,5 +1,5 @@
 @component('mail::message')
-# Invoice Information
+{{-- # Invoice Information --}}
 
 Hello {{ $customer->name }},
 
