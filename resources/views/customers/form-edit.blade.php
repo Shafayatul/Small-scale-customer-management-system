@@ -78,26 +78,13 @@
 </div>
 <div class="row">
     <div class="col-md-6">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio" name="is_paid" value="0" @if($customer->is_paid == 0) checked @endif>
-                    <label class="custom-control-label" for="customRadio">Unpaid</label>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio2" name="is_paid" value="1" @if($customer->is_paid == 1) checked @endif>
-                    <label class="custom-control-label" for="customRadio2">Paid</label>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6">
         <div class="custom-control custom-checkbox">
             <input type="checkbox" class="custom-control-input" id="customCheck" name="is_autometic" @if($customer->is_invoice_auto == 1) checked @endif>
             <label class="custom-control-label" for="customCheck">Invoice Automatically?</label>
         </div>
+    </div>
+    <div class="col-md-6">
+        
     </div>
     
 </div>

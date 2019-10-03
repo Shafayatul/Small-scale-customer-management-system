@@ -12,7 +12,9 @@ use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\InvoicePdf;
+use App\Mail\InvoiceEmailReminder;
 use Carbon\Carbon;
+use PDF;
 
 class CustomersController extends Controller
 {
@@ -111,7 +113,6 @@ class CustomersController extends Controller
         $customer->city            = $request->city;
         $customer->state           = $request->state;
         $customer->zip             = $request->zip;
-        $customer->is_paid         = $is_paid;
         $customer->is_invoice_auto = $is_autometic;
         $customer->days            = $request->days;
         $customer->invoice_email   = $request->invoice_email;
@@ -129,7 +130,8 @@ class CustomersController extends Controller
         $invoice->autometic_email_day = $request->days;
         $invoice->invoice_email       = $request->invoice_email;
         $invoice->total_amount        = $sum_amount;
-        $invoice->is_paid             = $is_paid;
+
+        $invoice->is_paid             = 0;
         $invoice->last_email_date     = $last_email_date;
         $invoice->save();
 
@@ -143,22 +145,7 @@ class CustomersController extends Controller
             $product->save();
         }
 
-        // $ref          = date('y-m-d').'-'.mt_rand(1,1000);
-        // $billing_date = Carbon::today()->format('d/m/Y');
-        // $due_date     = Carbon::today()->format('d/m/Y');
-
-        // if($request->is_save_and_email == '1'){
-        //     $this->invoiceEmail($invoice->id);
-        // }
-
-        // $customer     = Customer::findOrFail($request->customer_id);
-        // $products     = Product::where('user_id', $request->customer_id)->where('invoice_id', $invoice->id)->get();
-        // $pdf = PDF::loadView('pdfs.invoice', compact('customer', 'products', 'ref', 'billing_date', 'due_date'));
-        
-        // return $pdf->download('invoice.pdf');
-
-
-        return redirect(url('customers'))->with('success', 'Customer added!');
+        return redirect('/home')->with('success', 'Customer added!');
     }
 
     /**
@@ -235,7 +222,6 @@ class CustomersController extends Controller
         $customer->city            = $request->city;
         $customer->state           = $request->state;
         $customer->zip             = $request->zip;
-        $customer->is_paid         = $is_paid;
         $customer->is_invoice_auto = $is_autometic;
         $customer->days            = $request->days;
         $customer->invoice_email   = $request->invoice_email;
@@ -256,12 +242,17 @@ class CustomersController extends Controller
                 $invoice_id                   = Invoice::where('id', $customer->id)->first()->id;
                 $invoice                      = Invoice::findOrFail($invoice_id);
             }
+
             $invoice->user_id             = $customer->id;
             $invoice->is_autometic        = $is_autometic;
             $invoice->autometic_email_day = $request->days;
             $invoice->invoice_email       = $request->invoice_email;
             $invoice->total_amount        = $sum_amount;
-            $invoice->is_paid             = $is_paid;
+            if ($count == 0) {
+                $invoice->is_paid             = 0;
+            }else{
+                $invoice->is_paid             = $invoice->is_paid;
+            }
             $invoice->last_email_date     = $last_email_date;
             $invoice->save();
 
@@ -277,7 +268,7 @@ class CustomersController extends Controller
                 echo $product->product_name;
             }
         }
-        return redirect('customers')->with('success', 'Customer updated!');
+        return redirect('/home')->with('success', 'Customer updated!');
     }
 
     /**

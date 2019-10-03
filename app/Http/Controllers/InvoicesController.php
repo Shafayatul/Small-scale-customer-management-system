@@ -15,6 +15,7 @@ use App\Http\Controllers\CustomersController;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\InvoicePdf;
+use App\Mail\InvoiceEmailReminder;
 
 
 
@@ -108,11 +109,7 @@ class InvoicesController extends Controller
             $this->invoiceEmail($invoice->id);
         }
 
-        $customer     = Customer::findOrFail($request->customer_id);
-        $products     = Product::where('user_id', $request->customer_id)->where('invoice_id', $invoice->id)->get();
-        $pdf = PDF::loadView('pdfs.invoice', compact('customer', 'products', 'ref', 'billing_date', 'due_date'));
-        
-        return $pdf->download('invoice.pdf');
+        return redirect('/home')->with('success', 'Sent Email Successfully!');
     }
 
 
@@ -124,7 +121,10 @@ class InvoicesController extends Controller
         $ref          = date('y-m-d').'-'.mt_rand(1,1000);
         $billing_date = Carbon::today()->format('d/m/Y');
         $due_date     = Carbon::today()->format('d/m/Y');
-        Mail::to($customer->email)->send(new InvoicePdf($customer, $products, $ref, $billing_date, $due_date));
+
+        $pdf = PDF::loadView('pdfs.invoice', compact('customer', 'products', 'ref', 'billing_date', 'due_date'));
+        $pdf = $pdf->output();
+        Mail::to($customer->email)->send(new InvoicePdf($customer, $products, $ref, $billing_date, $due_date, $pdf));
         return true;
     }
 
@@ -139,7 +139,11 @@ class InvoicesController extends Controller
         $ref          = date('y-m-d').'-'.mt_rand(1,1000);
         $billing_date = Carbon::parse($invoice->created_at)->format('d/m/Y');
         $due_date     = Carbon::parse($invoice->created_at)->format('d/m/Y');
-        Mail::to($customer->email)->send(new InvoicePdf($customer, $products, $ref, $billing_date, $due_date));
+
+        $pdf = PDF::loadView('pdfs.invoice', compact('customer', 'products', 'ref', 'billing_date', 'due_date'));
+        $pdf = $pdf->output();
+        // dd();
+        Mail::to($customer->email)->send(new InvoiceEmailReminder($customer, $products, $ref, $billing_date, $due_date, $pdf));
 
         return redirect('/customers/'.$invoice->user_id)->with('success', 'Sent Email Successfully!');
     }
@@ -209,12 +213,7 @@ class InvoicesController extends Controller
         foreach ($request->amount as $key => $value) {
             $sum_amount += $value;
         }
-
-        if (isset($request->is_autometic)) {
-            $is_autometic = 1;
-        }else{
-            $is_autometic = 0;
-        }
+        
 
         if($request->is_paid == '1'){
             $is_paid = 1;
@@ -225,17 +224,19 @@ class InvoicesController extends Controller
 
         $invoice                      = Invoice::findOrFail($id);
         $invoice->total_amount        = $sum_amount;
-        $invoice->is_autometic        = $is_autometic;
-        $invoice->autometic_email_day = $request->autometic_email_day;
+        if(!isset($request->autometic_email_day)){
+            $invoice->autometic_email_day = $invoice->autometic_email_day;
+        }else{
+            $invoice->autometic_email_day = $request->autometic_email_day;
+        }
+        
         $invoice->invoice_email       = $request->invoice_email;
         $invoice->is_paid             = $is_paid;
         $invoice->save();
 
         $customer                  = Customer::where('id', $invoice->user_id)->first();
-        $customer->is_invoice_auto = $is_autometic;
         $customer->days            = $request->autometic_email_day;
         $customer->invoice_email   = $request->invoice_email;
-        $invoice->is_paid          = $is_paid;
         $customer->save();
 
         foreach ($request->product_name as $key => $value) {
@@ -249,7 +250,7 @@ class InvoicesController extends Controller
 
         }
 
-        return redirect('/customers/'.$invoice->user_id)->with('success', 'Product Updated!');
+        return redirect('home')->with('success', 'Product Updated!');
     }
 
     /**

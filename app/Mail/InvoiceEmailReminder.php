@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class InvoicePdf extends Mailable
+class InvoiceEmailReminder extends Mailable
 {
     use Queueable, SerializesModels;
     public $customer, $products, $ref, $billing_date, $due_date, $pdf;
@@ -34,8 +34,8 @@ class InvoicePdf extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.invoice')
-                ->attachData($this->pdf, 'Invoice.pdf', [
+        return $this->markdown('emails.InvoiceEmailReminder')
+                ->attachData($this->pdf, 'ReminderInvoice.pdf', [
                     'mime' => 'application/pdf',
                 ]);
     }

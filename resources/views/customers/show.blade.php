@@ -109,6 +109,7 @@ Customer {{ $customer->id }}
                                     <th>#</th>
                                     <th>Invoice Create Date</th>
                                     <th>Is Paid</th>
+                                    <th>Autometic</th>
                                     <th>Amount</th>
                                     <th>Actions</th>
                                 </thead>
@@ -133,9 +134,16 @@ Customer {{ $customer->id }}
                                                 <span style="color: red;">Unpaid</span>
                                             @endif
                                         </td>
+                                        <td>
+                                            @if($item->is_autometic == 1) 
+                                                <span class="text-success">Yes</span>
+                                            @else
+                                                <span class="text-danger">No</span>
+                                            @endif
+                                        </td>
                                         <td>{{ $item->total_amount }}</td>
                                         <td>
-                                            <a href="{{ url('/invoice-pdf-view/' . $item->id) }}" title="View Pdf"><button class="btn btn-primary btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                            <a href="{{ url('/invoice-pdf-view/' . $item->id) }}" title="View Pdf" target="_blank"><button class="btn btn-primary btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                             <a href="{{ url('/invoice-pdf-download/' . $item->id) }}" title="Download Pdf"><button class="btn btn-info btn-sm"><i class="fa fa-arrow-down" aria-hidden="true"></i></button></a>
                                             <a href="{{ url('/invoice-edit/' . $item->id) }}" title="Edit Role"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
 
@@ -165,17 +173,17 @@ Customer {{ $customer->id }}
                                     </tr>
                                     @endforeach
                                     <tr>
-                                        <td colspan="3" class="text-right">Total Paid</td>
+                                        <td colspan="4" class="text-right">Total Paid</td>
                                         <td>{{ $paid_amount }}</td>
                                         <td></td>
                                     </tr> 
                                     <tr>
-                                        <td colspan="3" class="text-right">Total Unpaid</td>
+                                        <td colspan="4" class="text-right">Total Unpaid</td>
                                         <td>{{ $unpaid_amount }}</td>
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3" class="text-right">Total Amount</td>
+                                        <td colspan="4" class="text-right">Total Amount</td>
                                         <td>{{ $paid_amount + $unpaid_amount }}</td>
                                         <td></td>
                                     </tr>

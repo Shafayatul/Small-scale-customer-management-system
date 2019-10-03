@@ -67,6 +67,7 @@
     </div>
 </div>
 {{-- @if($formMode == 'create') --}}
+
 <div class="row">
     <div class="col-md-12">
         <div class="form-group {{ $errors->has('invoice_email') ? 'has-error' : ''}}">
@@ -79,27 +80,14 @@
 
 <div class="row">
     <div class="col-md-6">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio" name="is_paid" value="0">
-                    <label class="custom-control-label" for="customRadio">Unpaid</label>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio2" name="is_paid" value="1">
-                    <label class="custom-control-label" for="customRadio2">Paid</label>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-md-6">
         <div class="custom-control custom-checkbox">
             <input type="checkbox" class="custom-control-input" id="customCheck" name="is_autometic">
             <label class="custom-control-label" for="customCheck">Invoice Automatically?</label>
         </div>
+    </div>
+    
+    <div class="col-md-6">
+        
     </div>
     
 </div>

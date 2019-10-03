@@ -9,7 +9,6 @@
 		}
 		body {
 			font-family: Arial, Helvetica, sans-serif;
-			position: relative;
 		}
 
 		.col-1 {width: 8.33%;}
@@ -142,12 +141,12 @@
 		}
 	</style>
 </head>
-<body>
+<body style="width: 100%; display: block; overflow: hidden; max-width: 600px; margin: 0 auto !important; background-color: #ffffff;">
 	<div class="container">
 		<div class="row">
 			<div class="col-12 text-right">
-				<h2 class="uppercase" style="font-weight: 1000 !important; font-size: 26px;"><b>Invoice</b></h2>
-				<p style=" line-height: 7px !important; font-size: 12px !important; margin-top: 20px; margin-bottom: 0px;" class="header-p uppercase">
+				<h2 class="uppercase" style="font-weight: 1000 !important; font-size: 26px; text-align: right !important;"><b>Invoice</b></h2>
+				{{-- <p style=" line-height: 7px !important; font-size: 12px !important; margin-top: 20px; margin-bottom: 0px;" class="header-p uppercase">
 					<span class="light-blue" style="font-size: 20px; font-weight:800 !important; margin-right: 12px; padding-right: 24px;">Reference:</span>
 					<span class="p-style-2">{{ $ref }}</span>
 				</p>
@@ -158,17 +157,35 @@
 				<p style=" line-height: 7px !important; font-size: 12px !important; margin-bottom: 0px;" class="header-p">
 					<span class="light-blue uppercase" style="font-size: 20px; font-weight:800 !important; margin-right: 34px; text-align: left; padding-right: 26px;">Due Date:</span>
 					<span class="p-style-2">{{ $due_date }}</span>
-				</p>
+				</p> --}}
+				<div class="row">
+					<div class="col-10">
+						<p style=" line-height: 7px !important; font-size: 12px !important  font-weight:800 !important; margin-top: 20px; margin-bottom: 0px;  margin-right: 12px; padding-right: 24px; text-align:right !important;" class="header-p uppercase light-blue">Reference:
+						</p>
+						<p style=" line-height: 7px !important; font-size: 12px !important  font-weight:800 !important; margin-top: 20px; margin-bottom: 0px;  margin-right: 12px; padding-right: 24px; text-align:right !important;" class="header-p uppercase light-blue">Billing Date:
+						</p>
+						<p style=" line-height: 7px !important; font-size: 12px !important  font-weight:800 !important; margin-top: 20px; margin-bottom: 0px;  margin-right: 12px; padding-right: 24px; text-align:right !important;" class="header-p uppercase light-blue">Due Date:
+						</p>
+					</div>
+					<div class="col-2">
+						<p style=" line-height: 7px !important; font-size: 12px !important; margin-top: 20px; margin-bottom: 0px; color : #302124; font-weight: 500 !important; text-align: right !important;" class="header-p uppercase p-style-2">{{ $ref }}
+						</p>
+						<p style=" line-height: 7px !important; font-size: 12px !important; margin-top: 20px; margin-bottom: 0px; color : #302124; font-weight: 500 !important; text-align: right !important;" class="header-p uppercase p-style-2">{{ $billing_date }}
+						</p>
+						<p style=" line-height: 7px !important; font-size: 12px !important; margin-top: 20px; margin-bottom: 0px; color : #302124; font-weight: 500 !important; text-align: right !important;" class="header-p uppercase p-style-2">{{ $due_date }}
+						</p>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="row" style="margin-top: 60px;">
-			<div class="col-5" style="width: 286px;">
+			<div class="col-5">
 				<h3 class="light-blue" style="font-size : 13px; padding-left : 5px;">OUR INFORMATION</h3>
 				<div class="underline"></div>
 				<h4 class="info-bill-text">Devyn Earls, Inc.</h4>
 				<p class="p-style" style="font-size: 11px; padding-left: 5px;">4446-1A Hendricks Ave., Ste 224 <br> Jacksonville, FL 32207</p>
 			</div>
-			<div class="col-7 float-right" style="width: 350px;">
+			<div class="col-7 float-right">
 				<div class="billing-info">
 					<h3 class="light-blue" style="font-size : 13px; padding-left : 5px;">BILLING TO</h3>
 					<div class="underline"></div>
@@ -205,12 +222,19 @@
 						<tr>
 							<td style="width: 58%; background-color: #f0f0f0; height: 50px; margin-top: 0px; margin-left: 10px; padding-left: 8px; padding-top: 0px;">
 								<h5 style="font-size : 11px; color: #3A3232">{{ $product->product_name }}</h5>
-								<p class="p-style" style="margin: 0px !important; padding-top: 5px; font-size: 10px;">{{ $product->description }}</p>
+								<p class="p-style" style="margin: 0px !important; padding-top: 5px; font-size: 10px;">aaaaaaaaaaaa</p>
 							</td>
 							<td style="width: .1%; background-color: #fff; height: 50px; margin-top: 20px;"></td>
-							<td style="width: 25%; background-color: #f0f0f0; height: 50px; margin-top: 20px; text-align: center;"><p class="p-style"></p></td>
+							<td style="width: 25%; background-color: #f0f0f0; height: 50px; margin-top: 20px; text-align: center;"><p class="p-style">{{ $product->description }}</p></td>
 							<td style="width: .1%; background-color: #fff; height: 50px; margin-top: 20px;"></td>
 							<td style="width: 12%; background-color: #f0f0f0; height: 50px; margin-top: 20px; text-align: center;"><p class="p-style">{{ $product->amount }}</p></td>
+						</tr>
+						<tr>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
 						</tr>
 					@endforeach
 					<tr>
@@ -228,7 +252,7 @@
 						<td style="width: .07%; background-color: #fff; height: 30px;"></td>
 						<td style="width: 12.5%; background-color: #07569E; color: #fff; height: 30px; padding-left: 7px; font-size : 11px; font-weight: bold;">Total due</td>
 						<td style="width: .07%; background-color: #fff; height: 30px;"></td>
-						<td style="width: 12.5%; background-color: #07569E; color: #fff; height: 30px; text-align: center; font-size : 11px; font-weight: bold;">$ {{ $products->sum('amount') }}</td>
+						<td style="width: 12.5%; background-color: #07569E; color: #fff; height: 30px; text-align: center; font-size : 11px; font-weight: bold;">$ 322.00</td>
 					</tr>
 				</table>
 
@@ -257,7 +281,7 @@
 				</div>
 			</div>
 		</div>
-
+{{-- 
 		<div class="row" style="position: absolute; bottom: 0 !important;">
 			<div class="col-md-12">
 				<table>
@@ -267,7 +291,7 @@
 					</tr>
 				</table>
 			</div>
-		</div>
+		</div> --}}
 	</div>
 </body>
 </html>
