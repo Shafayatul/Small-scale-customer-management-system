@@ -212,14 +212,21 @@
 							<td style="width: .1%; background-color: #fff; height: 50px; margin-top: 20px;"></td>
 							<td style="width: 12%; background-color: #f0f0f0; height: 50px; margin-top: 20px; text-align: center;"><p class="p-style">{{ $product->amount }}</p></td>
 						</tr>
-					@endforeach
-					<tr>
+						<tr>
 							<td style="height: 1px;"></td>
 							<td style="height: 1px;"></td>
 							<td style="height: 1px;"></td>
 							<td style="height: 1px;"></td>
 							<td style="height: 1px;"></td>
 						</tr>
+					@endforeach
+					{{-- <tr>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
+						</tr> --}}
 				</table>
 
 				<table>
