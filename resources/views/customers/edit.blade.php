@@ -48,6 +48,7 @@ Edit Customer #{{ $customer->id }}
     </div>
 @endsection
 @section('footer-additional-script')
+<script src="/js/app.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
 

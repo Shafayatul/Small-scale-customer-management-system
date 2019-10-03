@@ -49356,8 +49356,7 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var app = new Vue({
-  el: '#app'
+var app = new Vue({// el: '#app',
 });
 
 /***/ }),
@@ -49381,6 +49380,8 @@ try {
   window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
+
+  __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 } catch (e) {}
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

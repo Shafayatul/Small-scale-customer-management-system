@@ -43,6 +43,7 @@ Create New Invoice
     </div>
 @endsection
 @section('footer-additional-script')
+<script src="/js/app.js"></script>
 <script type="text/javascript">
             rowCount = 1;
     function addMoreRows(frm) {

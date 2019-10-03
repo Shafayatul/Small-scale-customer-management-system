@@ -1,4 +1,11 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/js/jquery.min.js": "/js/jquery.min.js",
+    "/js/bootstrap.bundle.min.js": "/js/bootstrap.bundle.min.js",
+    "/js/jquery.easing.min.js": "/js/jquery.easing.min.js",
+    "/js/sb-admin-2.min.js": "/js/sb-admin-2.min.js",
+    "/js/Chart.min.js": "/js/Chart.min.js",
+    "/js/chart-area-demo.js": "/js/chart-area-demo.js",
+    "/js/chart-pie-demo.js": "/js/chart-pie-demo.js"
 }

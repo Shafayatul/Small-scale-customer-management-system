@@ -48,6 +48,7 @@ Edit Invoice #{{ $invoice->id }}
     </div>
 @endsection
 @section('footer-additional-script')
+<script src="/js/app.js"></script>
 <script type="text/javascript">
         var rowCount = "{{ count($products) }}";
         // alert(rowCount);
