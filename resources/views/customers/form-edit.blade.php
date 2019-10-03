@@ -76,28 +76,26 @@
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-6">
         <div class="row">
             <div class="col-md-6">
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio" name="is_paid" value="0">
+                    <input type="radio" class="custom-control-input" id="customRadio" name="is_paid" value="0" @if($customer->is_paid == 0) checked @endif>
                     <label class="custom-control-label" for="customRadio">Unpaid</label>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio2" name="is_paid" value="1">
+                    <input type="radio" class="custom-control-input" id="customRadio2" name="is_paid" value="1" @if($customer->is_paid == 1) checked @endif>
                     <label class="custom-control-label" for="customRadio2">Paid</label>
                 </div>
             </div>
         </div>
     </div>
-    
     <div class="col-md-6">
         <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="customCheck" name="is_autometic">
+            <input type="checkbox" class="custom-control-input" id="customCheck" name="is_autometic" @if($customer->is_invoice_auto == 1) checked @endif>
             <label class="custom-control-label" for="customCheck">Invoice Automatically?</label>
         </div>
     </div>
@@ -121,39 +119,40 @@
         
     </div>
 
-    <div class="row" id="registration1">
+    @foreach($products as $product)
+    <div class="row" id="registration{{ $loop->iteration }}">
         <div class="col-md-3">
             <div class="form-group {{ $errors->has('product_name') ? 'has-error' : ''}}">
                 {!! Form::label('product_name', 'Product Name', ['class' => 'control-label']) !!}
-                {!! Form::text('product_name[]', null, ('' == 'required') ? ['class' => 'form-control product_name', 'required' => 'required', 'serial'=>'1', 'id' => 'product_name_1'] : ['class' => 'form-control product_name', 'serial'=>'1', 'id' => 'product_name_1']) !!}
+                {!! Form::text('product_name[]', $product->product_name, ('' == 'required') ? ['class' => 'form-control product_name', 'required' => 'required', 'serial'=>'{{ $loop->iteration }}', 'id' => 'product_name_{{ $loop->iteration }}'] : ['class' => 'form-control product_name', 'serial'=>'{{ $loop->iteration }}', 'id' => 'product_name_{{ $loop->iteration }}']) !!}
                 {!! $errors->first('product_name', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
                 {!! Form::label('description', 'Description', ['class' => 'control-label']) !!}
-                {!! Form::text('description[]', null, ('' == 'required') ? ['class' => 'form-control description', 'required' => 'required', 'serial'=>'1', 'id' => 'description_1'] : ['class' => 'form-control description', 'serial'=>'1', 'id' => 'description_1']) !!}
+                {!! Form::text('description[]', $product->description, ('' == 'required') ? ['class' => 'form-control description', 'required' => 'required', 'serial'=>'{{ $loop->iteration }}', 'id' => 'description_{{ $loop->iteration }}'] : ['class' => 'form-control description', 'serial'=>'{{ $loop->iteration }}', 'id' => 'description_{{ $loop->iteration }}']) !!}
                 {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group {{ $errors->has('amount') ? 'has-error' : ''}}">
                 {!! Form::label('amount', 'Amount', ['class' => 'control-label']) !!}
-                {!! Form::number('amount[]', null, ('' == 'required') ? ['class' => 'form-control amount', 'required' => 'required', 'serial' => '1', 'id' => 'amount_1'] : ['class' => 'form-control amount', 'serial' => '1', 'id' => 'amount_1']) !!}
+                {!! Form::number('amount[]', $product->amount, ('' == 'required') ? ['class' => 'form-control amount', 'required' => 'required', 'serial' => '{{ $loop->iteration }}', 'id' => 'amount_{{ $loop->iteration }}'] : ['class' => 'form-control amount', 'serial' => '{{ $loop->iteration }}', 'id' => 'amount_{{ $loop->iteration }}']) !!}
                 {!! $errors->first('amount', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
         <div class="col-md-3">
-            <button type="button" class="removeButton btn btn-danger btn-sm" serial="1"> <i  class="fas fa-trash-alt"></i></button>  
+            <button type="button" class="removeButton btn btn-danger btn-sm" serial="{{ $loop->iteration }}"> <i  class="fas fa-trash-alt"></i></button>  
         </div>
     </div>
-
+    @endforeach
     <div id="addedRows"></div>
 
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <button class="pull-right add-product-btn  btn btn-success" onclick="addMoreRows(this.form);" type="button">
+                    <button class="pull-right add-product-btn  btn btn-success" type="button">
                         <i  class="fas fa-plus"></i>
                     </button>    
                 </div>

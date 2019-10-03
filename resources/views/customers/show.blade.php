@@ -12,7 +12,7 @@ Customer {{ $customer->id }}
                     <div class="card-header">Customer {{ $customer->name }}</div>
                     <div class="card-body">
 
-                        <a href="{{ url('/customers') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/home') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <a href="{{ url('/customers/' . $customer->id . '/edit') }}" title="Edit Role"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                         <a href="{{ url('/customer-invoice/' . $customer->id) }}" title="View Role"><button class="btn btn-success btn-sm"><i class="fas fa-file-invoice" aria-hidden="true"></i> Invoice</button></a>
                         {!! Form::open([

@@ -141,7 +141,6 @@ class CustomersController extends Controller
             $product->description  = $request->description[$key];
             $product->amount       = $request->amount[$key];
             $product->save();
-
         }
 
         // $ref          = date('y-m-d').'-'.mt_rand(1,1000);
@@ -187,8 +186,15 @@ class CustomersController extends Controller
             '0' => '--Select Day--', '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5', '6' => '6', '7' => '7', '8' => '8', '9' => '9', '10' => '10', '11' => '11', '12' => '12', '13' => '13', '14' => '14', '15' => '15', '16' =>'16', '17' => '17', '18' => '18', '19' => '19', '20' => '20', '21' => '21', '22' => '22', '23' => '23', '24' => '24', '25' => '25', '26' => '26', '27' => '27', '28' => '28'
         ];
         $customer = Customer::findOrFail($id);
+        $products = [];
+        $invoice_count = Invoice::where('user_id', $id)->where('is_autometic', '1')->count();
+        if ($invoice_count != 0) {
+            $invoice_id = Invoice::where('user_id', $id)->where('is_autometic', '1')->first()->id;
+            $products = Product::where('user_id', $id)->where('invoice_id', $invoice_id)->get();
+        }
 
-        return view('customers.edit', compact('customer', 'days'));
+
+        return view('customers.edit', compact('customer', 'days', 'products'));
     }
 
     /**
@@ -200,6 +206,26 @@ class CustomersController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        if (isset($request->is_autometic)) {
+            $is_autometic = 1;
+        }else{
+            $is_autometic = 0;
+        }
+
+        if($request->is_paid == '1'){
+            $is_paid = 1;
+        }else{
+            $is_paid = 0;
+        }
+
+        if($request->is_save_and_email == '1'){
+            $last_email_date = Carbon::today()->format('Y-m-d');
+        }else{
+            $last_email_date = null;
+        }
+
+
         $customer = Customer::findOrFail($id);
         $customer->name            = $request->name;
         $customer->email           = $request->email;
@@ -209,8 +235,48 @@ class CustomersController extends Controller
         $customer->city            = $request->city;
         $customer->state           = $request->state;
         $customer->zip             = $request->zip;
+        $customer->is_paid         = $is_paid;
+        $customer->is_invoice_auto = $is_autometic;
+        $customer->days            = $request->days;
+        $customer->invoice_email   = $request->invoice_email;
         $customer->save();
 
+        if ($is_autometic == 1) {
+
+            $sum_amount = 0;
+            foreach ($request->amount as $key => $value) {
+                $sum_amount += $value;
+            }
+
+            $count = Invoice::where('user_id', $customer->id)->where('is_autometic', '1')->count();
+
+            if ($count == 0) {
+                $invoice                      = new Invoice;
+            }else{
+                $invoice_id                   = Invoice::where('id', $customer->id)->first()->id;
+                $invoice                      = Invoice::findOrFail($invoice_id);
+            }
+            $invoice->user_id             = $customer->id;
+            $invoice->is_autometic        = $is_autometic;
+            $invoice->autometic_email_day = $request->days;
+            $invoice->invoice_email       = $request->invoice_email;
+            $invoice->total_amount        = $sum_amount;
+            $invoice->is_paid             = $is_paid;
+            $invoice->last_email_date     = $last_email_date;
+            $invoice->save();
+
+            $sd = Product::where('user_id', $customer->id)->where('invoice_id', $invoice->id)->delete();
+            foreach ($request->product_name as $key => $value) {
+                $product               = new Product;
+                $product->invoice_id   = $invoice->id;
+                $product->user_id      = $customer->id;
+                $product->product_name = $request->product_name[$key];
+                $product->description  = $request->description[$key];
+                $product->amount       = $request->amount[$key];
+                $product->save();
+                echo $product->product_name;
+            }
+        }
         return redirect('customers')->with('success', 'Customer updated!');
     }
 

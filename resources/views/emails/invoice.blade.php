@@ -7,6 +7,9 @@
 		* {
 		  box-sizing: border-box;
 		}
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+		}
 
 		.col-1 {width: 8.33%;}
 		.col-2 {width: 16.66%;}
@@ -33,15 +36,18 @@
 		  display: table;
 		}
 
-		html {
-		  font-family: "helvetica", sans-serif;
-
+		h1,h2,h3,h4,h5,h6 p {
+			margin: 0px;
+		}
+		h1,h2,h3,h4,h5,h6 p {
+			margin: 0px;
 		}
 
 		.container{
 			margin-right: auto;
 			margin-left: auto;
 			width: 100%;
+			padding: 22px 32px 22px 30px;
 		}
 
 		.text-right{
@@ -56,7 +62,7 @@
 		}
 		.header-p{
 			line-height: 10px;
-			font-size: 14px;
+			/ font-size: 14px; /
 		}
 
 		.light-blue{
@@ -85,7 +91,7 @@
 
 		table {
 		  width: 100%;
-		  border-collapse: collapse; 
+		  border-collapse: collapse;
 		}
 
 		.border-bottom{
@@ -96,148 +102,196 @@
 		.billing-info{
 			margin-left: 10%;
 		}
-
-		.margin-bottom-1{
-			margin-bottom: 10px;
+		.p-style {
+			font-size : 12px;
+			color : #606060;
+			line-height: 18px;
+			/ padding-left: 5px; /
+			margin: 6px;
 		}
-		.margin-bottom-2{
-			padding-bottom: 20px !important;
+		.p-style-2 {
+			font-size : 14px;
+			color : #302124;
+			line-height: 20px;
+			font-weight: 500 !important;
+		}
+
+		.info-bill-text {
+			color : #3A3232;
+			margin-top: 20px;
+			font-size: 13px;
+			padding-left: 5px;
+			margin-bottom: 0px;
+			color : #808080;
+			line-height: 20px;
+		}
+		h3 {
+			font-size: 14px;
+
+		}
+		table.product-table tr{
+  		border:1px solid red;
+		}
+		.underline {
+			width: 100%;
+			height: 1.5px;
+			background: #07569E;
+			opacity: .6;
+			margin-top: 10px;
 		}
 	</style>
 </head>
-<body>
+<body style="width: 100%; display: block; overflow: hidden; max-width: 600px; margin: 0 auto !important; background-color: #ffffff;">
 	<div class="container">
-
-		<div class="row" style="padding-bottom: 20px !important;">
-			<div class="col-12">
-				<h2 class="uppercase  text-right" style="padding-bottom: 10px;"><b>Invoice</b></h2>
-				<p class="header-p text-right"><span class="light-blue" style="margin-right: 12px;">Reference:</span> {{ $ref }}</p>
-				<p class="header-p text-right"><span class="light-blue" style="margin-right: 18px;">Billing Date:</span> {{ $billing_date }}</p>
-				<p class="header-p text-right"><span class="light-blue" style="margin-right: 34px;">Due Date:</span> {{ $due_date }}</p>
+		<div class="row">
+			<div class="col-12 text-right">
+				<h2 class="uppercase" style="font-weight: 1000 !important; font-size: 26px; text-align: right !important;"><b>Invoice</b></h2>
+				{{-- <p style=" line-height: 7px !important; font-size: 12px !important; margin-top: 20px; margin-bottom: 0px;" class="header-p uppercase">
+					<span class="light-blue" style="font-size: 20px; font-weight:800 !important; margin-right: 12px; padding-right: 24px;">Reference:</span>
+					<span class="p-style-2">{{ $ref }}</span>
+				</p>
+				<p style=" line-height: 7px !important; font-size: 12px !important; margin-bottom: 0px;" class="header-p">
+					<span class="light-blue uppercase" style="font-size: 20px; font-weight:800 !important; margin-right: 18px; text-align: left; padding-right: 20px;">Billing Date:</span>
+					<span class="p-style-2">{{ $billing_date }}</span>
+				</p>
+				<p style=" line-height: 7px !important; font-size: 12px !important; margin-bottom: 0px;" class="header-p">
+					<span class="light-blue uppercase" style="font-size: 20px; font-weight:800 !important; margin-right: 34px; text-align: left; padding-right: 26px;">Due Date:</span>
+					<span class="p-style-2">{{ $due_date }}</span>
+				</p> --}}
+				<div class="row">
+					<div class="col-10">
+						<p style=" line-height: 7px !important; font-size: 12px !important  font-weight:800 !important; margin-top: 20px; margin-bottom: 0px;  margin-right: 12px; padding-right: 24px; text-align:right !important;" class="header-p uppercase light-blue">Reference:
+						</p>
+						<p style=" line-height: 7px !important; font-size: 12px !important  font-weight:800 !important; margin-top: 20px; margin-bottom: 0px;  margin-right: 12px; padding-right: 24px; text-align:right !important;" class="header-p uppercase light-blue">Billing Date:
+						</p>
+						<p style=" line-height: 7px !important; font-size: 12px !important  font-weight:800 !important; margin-top: 20px; margin-bottom: 0px;  margin-right: 12px; padding-right: 24px; text-align:right !important;" class="header-p uppercase light-blue">Due Date:
+						</p>
+					</div>
+					<div class="col-2">
+						<p style=" line-height: 7px !important; font-size: 12px !important; margin-top: 20px; margin-bottom: 0px; color : #302124; font-weight: 500 !important; text-align: right !important;" class="header-p uppercase p-style-2">{{ $ref }}
+						</p>
+						<p style=" line-height: 7px !important; font-size: 12px !important; margin-top: 20px; margin-bottom: 0px; color : #302124; font-weight: 500 !important; text-align: right !important;" class="header-p uppercase p-style-2">{{ $billing_date }}
+						</p>
+						<p style=" line-height: 7px !important; font-size: 12px !important; margin-top: 20px; margin-bottom: 0px; color : #302124; font-weight: 500 !important; text-align: right !important;" class="header-p uppercase p-style-2">{{ $due_date }}
+						</p>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="row" style="padding-bottom: 20px !important;">
-			<div class="col-6">
-				<h3 class="light-blue">OUR INFORMATION</h3>
-				<hr class="hr-with-margin">
-				<h4>Devyn Earls, Inc.</h4>
-				<p>4446-1A Hendricks Ave., Ste 224</p>
-				<p>Jacksonville, FL 32207</p>
+		<div class="row" style="margin-top: 60px;">
+			<div class="col-5">
+				<h3 class="light-blue" style="font-size : 13px; padding-left : 5px;">OUR INFORMATION</h3>
+				<div class="underline"></div>
+				<h4 class="info-bill-text">Devyn Earls, Inc.</h4>
+				<p class="p-style" style="font-size: 11px; padding-left: 5px;">4446-1A Hendricks Ave., Ste 224 <br> Jacksonville, FL 32207</p>
 			</div>
-			<div class="col-6 float-right">
+			<div class="col-7 float-right">
 				<div class="billing-info">
-					<h3 class="light-blue">BILLING TO</h3>
-					<hr class="hr-without-margin">
-					<h4>{{ $customer->business_name }}</h4>
-					<p>{{ $customer->address }}</p>
-					<p>{{ $customer->city.','.$customer->state.','.$customer->zip }}</p>
+					<h3 class="light-blue" style="font-size : 13px; padding-left : 5px;">BILLING TO</h3>
+					<div class="underline"></div>
+					<h4 class="info-bill-text">{{ $customer->business_name }}</h4>
+					<p class="p-style" style="font-size: 11px; padding-left: 5px;">{{ $customer->address }} <br> {{ $customer->city.','.$customer->state.','.$customer->zip }} </p>
 				</div>
 			</div>
 		</div>
 
-		<div class="row" style="padding-bottom: 20px !important;">
+		<div class="row" style="margin-top: 40px;">
 			<div class="col-12">
 				<table>
-						<tr style="height: 40px; border-bottom: 1px solid #17579F!important;">
-							<td style="font-weight: bold; color: #4a4a80; font-size: 14px;">PRODUCT</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td class="text-right" style="font-size: 14px;">Total</td>
-						</tr>
+					<tr>
+						<td style="font-weight: bold; color: #323232; font-size: 13px; padding-left: 5px;">PRODUCT</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="text-right" style="font-size: 13px; padding-right: 10px; color: #323232; font-weight: bold;">TOTAL</td>
+					</tr>
+				</table>
+				<div class="" style="width: 100%; height: 1px; background: #17579F; margin: 10px 0px 5px 0px;">
+
+				</div>
+				<table>
+
 						<tr>
-							<td style="height: 5px;"></td>
-							<td style="height: 5px;"></td>
-							<td style="height: 5px;"></td>
-							<td style="height: 5px;"></td>
-							<td style="height: 5px;"></td>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
 						</tr>
 					@foreach($products as $product)
 						<tr>
-							<td style="width: 50%; background-color: #ececec; height: 50px; margin-top: 20px; margin-left: 10px; padding-left: 5px;">{{ $product->product_name }}</td>
+							<td style="width: 58%; background-color: #f0f0f0; height: 50px; margin-top: 0px; margin-left: 10px; padding-left: 8px; padding-top: 0px;">
+								<h5 style="font-size : 11px; color: #3A3232">{{ $product->product_name }}</h5>
+								<p class="p-style" style="margin: 0px !important; padding-top: 5px; font-size: 10px;">aaaaaaaaaaaa</p>
+							</td>
 							<td style="width: .1%; background-color: #fff; height: 50px; margin-top: 20px;"></td>
-							<td style="width: 25%; background-color: #ececec; height: 50px; margin-top: 20px; text-align: center;">{{ $product->description }}</td>
+							<td style="width: 25%; background-color: #f0f0f0; height: 50px; margin-top: 20px; text-align: center;"><p class="p-style">{{ $product->description }}</p></td>
 							<td style="width: .1%; background-color: #fff; height: 50px; margin-top: 20px;"></td>
-							<td style="width: 20%; background-color: #ececec; height: 50px; margin-top: 20px; text-align: center;">{{ $product->amount }}</td>
+							<td style="width: 12%; background-color: #f0f0f0; height: 50px; margin-top: 20px; text-align: center;"><p class="p-style">{{ $product->amount }}</p></td>
+						</tr>
+						<tr>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
 						</tr>
 					@endforeach
 					<tr>
-							<td style="height: 5px;"></td>
-							<td style="height: 5px;"></td>
-							<td style="height: 5px;"></td>
-							<td style="height: 5px;"></td>
-							<td style="height: 5px;"></td>
-						</tr>
-					<tr>
-						<td style="width: 60%; height: 50px; margin-top: 20px;"></td>
-						<td style="width: .1%; background-color: #fff; height: 50px; margin-top: 20px;"></td>
-						<td style="width: 25%; background-color: #4a4a80; color: #fff; height: 50px; margin-top: 20px; text-align: center;">Total Due</td>
-						<td style="width: .1%; background-color: #fff; height: 50px; margin-top: 20px;"></td>
-						<td style="width: 10%; background-color: #4a4a80; color: #fff; height: 50px; margin-top: 20px; text-align: center; font-size: 14px;">${{ $products->sum('amount') }}</td>
-					</tr>
-					<tr>
-							<td style="height: 5px;"></td>
-							<td style="height: 5px;"></td>
-							<td style="height: 5px;"></td>
-							<td style="height: 5px;"></td>
-							<td style="height: 5px;"></td>
-						</tr>
-						<tr>
-							<td style="height: 5px;"></td>
-							<td style="height: 5px;"></td>
-							<td style="height: 5px;"></td>
-							<td style="height: 5px;"></td>
-							<td style="height: 5px;"></td>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
+							<td style="height: 1px;"></td>
 						</tr>
 				</table>
-
 
 				<table>
-					<tr style="height: 40px; border-bottom: 1px solid #17579F!important; ">
-							<td style="font-weight: bold; color: #4a4a80; font-size: 14px;">PAYMENT INFORMATION</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td style="height: 15px;"></td>
-							<td style="height: 15px;"></td>
-							<td style="height: 15px;"></td>
-						</tr>
 					<tr>
-							<td>Make all checks payable to: Devyn Earls, Inc <br>
-								You can pay online with an additional 3% convience fee on my website: https://www.devynearlsinc.com	
-							</td>
-						</tr>
-						<tr>
-							<td style="height: 15px;"></td>
-							<td style="height: 15px;"></td>
-							<td style="height: 15px;"></td>
-						</tr>
-						<tr>
-							<td>If you have any questions concerning this invoice, contact me at devyn@dewebdesigns.com</td>
-						</tr>
-						<tr>
-							<td style="height: 15px;"></td>
-							<td style="height: 15px;"></td>
-							<td style="height: 15px;"></td>
-						</tr>
-						<tr>
-							<td>Thank you for your business.</td>
-						</tr>
-						<tr>
-							<td style="height: 15px;"></td>
-							<td style="height: 15px;"></td>
-							<td style="height: 15px;"></td>
-						</tr>
+						<td style="width: 74.8%; height: 30px;"></td>
+						<td style="width: .07%; background-color: #fff; height: 30px;"></td>
+						<td style="width: 12.5%; background-color: #07569E; color: #fff; height: 30px; padding-left: 7px; font-size : 11px; font-weight: bold;">Total due</td>
+						<td style="width: .07%; background-color: #fff; height: 30px;"></td>
+						<td style="width: 12.5%; background-color: #07569E; color: #fff; height: 30px; text-align: center; font-size : 11px; font-weight: bold;">$ 322.00</td>
+					</tr>
 				</table>
 
+				<div class="row" style="margin-top: 60px;">
+					<div class="col-12">
+						<table>
+							<tr>
+									<td style="font-weight: bold; color: #323232; font-size: 13px; padding-left: 5px;">PAYMENT INFORMATION</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+						</table>
+						<div class="" style="width: 100%; height: 1px; background: #17579F; margin: 10px 0px 10px 0px;">
 
+						</div>
 
-				
+						<div class="payment-info-desc" style="padding-left: 5px;">
+							<p class="p-style" style="font-size: 11px; margin-top : 0px !important;">Make all checks payable to: Devyn Earls, Inc. <br>
+								You can pay online with an additional 3% convience fee on my website: https://www.devynearlsinc.com</p>
+							<p class="p-style" style="font-size: 11px; padding-top: 10px; padding-bottom:10px;">If you have any questions concerning this invoice, contact me at devyn@dewebdesigns.com</p>
+							<p class="p-style" style="font-size: 11px;">Thank you for your business.</p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
+{{-- 
+		<div class="row" style="position: absolute; bottom: 0 !important;">
+			<div class="col-md-12">
+				<table>
+					<tr>
+						<td style="text-align: left;"><a class="p-style" style="text-decoration: none;" href="http://www.devynearlsinc.com/">http://www.devynearlsinc.com/</a></td>
+						<td style="text-align: right;"><p class="p-style">Page 1 of 1</p></td>
+					</tr>
+				</table>
+			</div>
+		</div> --}}
 	</div>
 </body>
 </html>

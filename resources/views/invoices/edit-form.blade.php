@@ -27,8 +27,7 @@
     </div>
     <div class="col-md-6">
         <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="customCheck" name="is_autometic" {{ $invoice->is_autometic == 1 ? 'checked' : '' }}>
-            <label class="custom-control-label" for="customCheck">Invoice Automatically?</label>
+            <label  for="customCheck">Invoice Automatically: {{ $invoice->is_autometic == 1 ? 'Yes' : 'No' }}</label>
         </div>
         
     </div>
@@ -36,7 +35,7 @@
 
 <br/>
 
-<div id="invoice_auto">
+@if($invoice->is_autometic == 1)
 
     <div class="row">
         <div class="col-md-12">
@@ -49,7 +48,7 @@
         
     </div>
 
-</div>
+@endif
 <br/>
 @foreach($products as $product)
     <div class="row" id="registration{{ $loop->iteration }}">
