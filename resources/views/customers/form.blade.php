@@ -82,7 +82,7 @@
     <div class="col-md-6">
         <div class="custom-control custom-checkbox">
             <input type="checkbox" class="custom-control-input" id="customCheck" name="is_autometic">
-            <label class="custom-control-label" for="customCheck">Invoice Automatically?</label>
+            <label class="custom-control-label" for="customCheck">Invoice Automatic?</label>
         </div>
     </div>
     

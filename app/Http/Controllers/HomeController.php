@@ -30,6 +30,7 @@ class HomeController extends Controller
         $last_month_paid     = 0;
         $last_month_unpaid   = 0;
         $last_month_total    = 0;
+        $recurring_invoice   = 0;
         $last_year_total     = 0;
         $paid_invoice_per_day= []; // for graph
 
@@ -48,8 +49,16 @@ class HomeController extends Controller
             }else{
                 $last_month_unpaid = $last_month_unpaid  + $last_month_invoice->total_amount;
             }
+
+            // recurring total
+            if ($last_month_invoice->is_autometic == 1) {
+                $recurring_invoice = $recurring_invoice + $last_month_invoice->total_amount;
+            }
+
         }
         $last_month_total   = $last_month_paid + $last_month_unpaid;
+
+
 
         foreach ($last_year_invoices as $last_year_invoice) {
             $last_year_total = $last_year_total + $last_year_invoice->total_amount; 
@@ -70,6 +79,6 @@ class HomeController extends Controller
         } else {
             $customers = Customer::latest()->paginate($perPage);
         }
-        return view('home', compact('last_month_paid','last_month_unpaid','last_month_total','last_year_total', 'customers', 'paid_invoice_per_day'));
+        return view('home', compact('last_month_paid','last_month_unpaid','last_month_total','last_year_total', 'customers', 'paid_invoice_per_day', 'recurring_invoice'));
     }
 }

@@ -27,7 +27,7 @@
     </div>
     <div class="col-md-6">
         <div class="custom-control custom-checkbox">
-            <label  for="customCheck">Invoice Automatically: {{ $invoice->is_autometic == 1 ? 'Yes' : 'No' }}</label>
+            <label  for="customCheck">Invoice Automatic: {{ $invoice->is_autometic == 1 ? 'Yes' : 'No' }}</label>
         </div>
         
     </div>

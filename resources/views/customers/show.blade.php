@@ -66,7 +66,7 @@ Customer {{ $customer->id }}
                                         <td> {{ $customer->zip }} </td>
                                     </tr>
                                     <tr>
-                                        <th> Is Invoice Automatically? </th>
+                                        <th> Is Invoice Automatic? </th>
                                         <td>
                                             @if($customer->is_invoice_auto == 1) 
                                                 <span class="text-success">Yes</span>
@@ -109,7 +109,7 @@ Customer {{ $customer->id }}
                                     <th>#</th>
                                     <th>Invoice Create Date</th>
                                     <th>Is Paid</th>
-                                    <th>Autometic</th>
+                                    <th>Automatic</th>
                                     <th>Amount</th>
                                     <th>Actions</th>
                                 </thead>

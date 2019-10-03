@@ -82,7 +82,7 @@ Customer {{ $customer->id }}
                                         <td> {{ $customer->monthly_payment }} </td>
                                     </tr>
                                     <tr>
-                                        <th> Is Invoice Automatically? </th>
+                                        <th> Is Invoice Automatic? </th>
                                         <td>
                                             @if($customer->is_invoice_auto == 1) 
                                                 <span class="text-success">Yes</span>
